@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,700;1,6..96,400&family=Jost:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+@source "../../../../packages/core/src";
+@import "@core/web/styles";
+
+:root {
+  --font-display: 'Bodoni Moda', Georgia, serif;
+  --font-body:    'Jost', system-ui, sans-serif;
+}
+
+/* Warm-black barbershop overrides — keeps gold accent from dubai */
+[data-theme="dubai"] {
+  --brand-bg:           #0A0804;
+  --brand-bg-mid:       #130F08;
+  --brand-bg-section:   #0F0A06;
+  --brand-blob-1:       rgba(201,169,110,0.16);
+  --brand-blob-2:       rgba(150,110,50,0.10);
+  --brand-particle:     rgba(201,169,110,0.28);
+}
+
+.loading-screen { background: var(--brand-bg); }
+.loading-screen .aurora-blob { background: var(--brand-blob-1); }

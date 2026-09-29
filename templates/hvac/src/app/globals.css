@@ -1,0 +1,273 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+@source "../../../../packages/core/src";
+@import "@core/web/styles";
+
+/* ═══════════════════════════════════════════════════════════════
+   HVAC · Arctic Command Center — dark premium theme
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  --font-display: "Rajdhani", system-ui, sans-serif;
+  --font-body:    "Inter", system-ui, sans-serif;
+}
+
+[data-theme="clean"] {
+  /* brand accent — orange */
+  --brand-accent:         #F97316;
+  --brand-accent-light:   #FB923C;
+  --brand-accent-glow:    rgba(249,115,22,0.22);
+  --brand-grad-from:      #FB923C;
+  --brand-grad-to:        #F97316;
+  --brand-rule:           #F97316;
+  --shadow-cta:           0 8px 32px -4px rgba(249,115,22,0.35);
+
+  /* ice blue — secondary for temperature cold side */
+  --brand-ice:            #38BDF8;
+  --brand-ice-glow:       rgba(56,189,248,0.18);
+
+  /* dark backgrounds */
+  --brand-bg:             #050A0F;
+  --brand-bg-2:           #0A141E;
+  --brand-bg-card:        #0E1C2A;
+  --brand-bg-card-hover:  #122233;
+  --brand-border:         rgba(255,255,255,0.07);
+  --brand-border-hover:   rgba(249,115,22,0.35);
+
+  /* particles + blobs */
+  --brand-particle:       rgba(249,115,22,0.4);
+  --brand-blob-1:         rgba(249,115,22,0.08);
+  --brand-blob-2:         rgba(56,189,248,0.05);
+
+  /* text */
+  --brand-fg:             #F8FAFC;
+  --brand-fg-muted:       rgba(248,250,252,0.5);
+  --brand-fg-subtle:      rgba(248,250,252,0.25);
+
+  /* gradients */
+  --brand-gradient:       linear-gradient(135deg, #F97316 0%, #FB923C 100%);
+  --brand-gradient-dark:  linear-gradient(180deg, #050A0F 0%, #0A141E 100%);
+
+  /* grid pattern overlay */
+  --grid-line:            rgba(255,255,255,0.028);
+}
+
+/* ── Global base ── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--brand-bg);
+  color: var(--brand-fg);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ── Vent grid background pattern ── */
+.hvac-grid-bg {
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* ── Glow utilities ── */
+.glow-orange {
+  box-shadow: 0 0 32px -8px rgba(249,115,22,0.5),
+              0 0 64px -16px rgba(249,115,22,0.2);
+}
+.glow-ice {
+  box-shadow: 0 0 32px -8px rgba(56,189,248,0.4),
+              0 0 64px -16px rgba(56,189,248,0.15);
+}
+.text-glow-orange {
+  text-shadow: 0 0 24px rgba(249,115,22,0.5);
+}
+
+/* ── Aurora blobs ── */
+@keyframes aurora-drift {
+  0%   { transform: translate(0, 0) scale(1); }
+  33%  { transform: translate(30px, -20px) scale(1.05); }
+  66%  { transform: translate(-20px, 15px) scale(0.97); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+.aurora-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  animation: aurora-drift 14s ease-in-out infinite;
+  pointer-events: none;
+}
+.aurora-blob-2 { animation-delay: -7s; animation-duration: 18s; }
+
+/* ── Ticker tape ── */
+@keyframes ticker-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.ticker-track {
+  animation: ticker-scroll 28s linear infinite;
+  display: flex;
+  width: max-content;
+}
+
+/* ── Hover lift ── */
+.hover-lift {
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              box-shadow 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.hover-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 48px -12px rgba(0,0,0,0.6),
+              0 0 32px -8px rgba(249,115,22,0.15);
+}
+
+/* ── CTA button ── */
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #F97316 0%, #EA6C0A 100%);
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.btn-primary::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 60%);
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+}
+.btn-primary:hover::before { transform: translateX(100%); }
+.btn-primary:hover {
+  box-shadow: 0 8px 32px -4px rgba(249,115,22,0.55);
+  transform: translateY(-2px);
+}
+
+/* ── Ghost button ── */
+.btn-ghost {
+  border: 1px solid rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.8);
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  background: rgba(255,255,255,0.03);
+}
+.btn-ghost:hover {
+  border-color: rgba(249,115,22,0.5);
+  background: rgba(249,115,22,0.06);
+  color: #F97316;
+}
+
+/* ── Card ── */
+.card-dark {
+  background: var(--brand-bg-card);
+  border: 1px solid var(--brand-border);
+  border-radius: 12px;
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+.card-dark:hover {
+  border-color: var(--brand-border-hover);
+  background: var(--brand-bg-card-hover);
+}
+
+/* ── Section headings ── */
+.section-label {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--brand-accent);
+}
+
+/* ── Stat bar divider ── */
+.stat-divider {
+  width: 1px;
+  background: linear-gradient(180deg, transparent, rgba(255,255,255,0.12), transparent);
+}
+
+/* ── FAQ accordion ── */
+.faq-item summary { list-style: none; cursor: pointer; }
+.faq-item summary::-webkit-details-marker { display: none; }
+
+/* ── Service area pill ── */
+.area-pill {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 999px;
+  transition: all 0.25s ease;
+}
+.area-pill:hover {
+  background: rgba(249,115,22,0.08);
+  border-color: rgba(249,115,22,0.3);
+  color: #F97316;
+}
+
+/* ── Scroll progress bar ── */
+.scroll-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: calc(var(--scroll-pct, 0) * 1%);
+  background: linear-gradient(90deg, #F97316, #FB923C, #38BDF8);
+  z-index: 9999;
+  filter: drop-shadow(0 0 6px rgba(249,115,22,0.6));
+  transition: width 0.1s linear;
+}
+
+/* ── Img reveal ── */
+.img-reveal {
+  overflow: hidden;
+  clip-path: inset(0 100% 0 0);
+}
+
+/* ── SplitText word wrap ── */
+.split-word-outer { display: inline-block; overflow: hidden; vertical-align: bottom; }
+.split-word { display: inline-block; }
+
+/* ── Service grid — clean 3×2 equal cards ── */
+.bento-grid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: stretch;
+}
+@media (max-width: 1023px) { .bento-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 639px)  { .bento-grid { grid-template-columns: 1fr; } }
+
+/* ── Review card gradient border ── */
+.review-card {
+  background: var(--brand-bg-card);
+  border-radius: 16px;
+  position: relative;
+}
+.review-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(249,115,22,0.3), transparent 60%, rgba(56,189,248,0.1));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ── 3D tilt card ── */
+.tilt-card {
+  transform-style: preserve-3d;
+  transition: box-shadow 0.4s ease;
+}

@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+@source "../../../../packages/core/src";
+@import "@core/web/styles";
+
+/* ═══════════════════════════════════════════════════════════════
+   skin-clinic · theme=slate + rose accent override
+   ═══════════════════════════════════════════════════════════════ */
+:root {
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body:    'DM Sans', sans-serif;
+}
+
+/* Rose accent override on top of slate dark base */
+[data-theme="slate"] {
+  --brand-accent:       #E879A0;
+  --brand-accent-light: #F9A8D4;
+  --brand-accent-glow:  rgba(232,121,160,0.45);
+  --brand-blob-1:       rgba(232,121,160,0.20);
+  --brand-blob-2:       rgba(190,24,93,0.15);
+  --brand-particle:     rgba(249,168,212,0.38);
+  --brand-grad-from:    #F9A8D4;
+  --brand-grad-to:      #E879A0;
+  --brand-grid:         rgba(232,121,160,0.07);
+  --brand-rule:         #E879A0;
+  --shadow-cta:         0 8px 32px -4px rgba(232,121,160,0.45);
+}
+
+.loading-screen { background: var(--brand-bg); }
+.loading-screen .aurora-blob { background: var(--brand-blob-1); }
+
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: ticker-scroll 32s linear infinite;
+}
+.ticker-track:hover { animation-play-state: paused; }

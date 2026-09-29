@@ -1,0 +1,21 @@
+import { Nav, Hero, Services, WhyUs, Reviews, ServiceAreas, Contact, Footer } from "@core/web"
+import { ProjectGallerySection } from "@/components/project-gallery"
+import { config } from "@/lib/config"
+
+export default function Home() {
+  return (
+    <>
+      <Nav config={config} scrolledTheme="light" />
+      <main>
+        <Hero config={config} videoSrc={config.heroVideo} posterSrc="/hero-1.jpg" />
+        <Services config={config} layout="zigzag" />
+        <ProjectGallerySection config={config} />
+        <WhyUs config={config} />
+        <Reviews config={config} ctaText={`Free design consult — ${config.business.review_count}+ projects completed`} />
+        <ServiceAreas config={config} />
+        <Contact config={config} heading="Start Your Remodel" paragraph="Free consultation + 3D design preview. No obligation to proceed." submitText="Request Free Consult" />
+      </main>
+      <Footer config={config} />
+    </>
+  )
+}

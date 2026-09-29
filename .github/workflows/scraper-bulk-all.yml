@@ -1,0 +1,53 @@
+name: Scraper — Bulk All Niches
+on:
+  workflow_dispatch:
+    inputs:
+      bulk_niche:
+        description: 'Single niche to run (medspa/hvac/roofing/dental/restaurant — blank = all)'
+        default: ''
+      places_batch:
+        description: 'Max city-term combos per niche per run'
+        default: '400'
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+      - name: Install deps
+        run: npm ci --workspace=pipeline
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        id: pw-cache
+        with:
+          path: ~/.cache/ms-playwright
+          key: pw-chromium-${{ runner.os }}
+      - name: Install Playwright browsers
+        if: steps.pw-cache.outputs.cache-hit != 'true'
+        working-directory: pipeline
+        run: npx playwright install chromium
+      - name: Install Playwright system deps
+        working-directory: pipeline
+        run: npx playwright install-deps chromium
+      - name: Write service account
+        run: echo '${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}' > pipeline/service-account.json
+      - name: Run bulk scraper
+        working-directory: pipeline
+        env:
+          LEADS_SHEET_ID:             ${{ secrets.LEADS_SHEET_ID }}
+          GOOGLE_AI_API_KEY:          ${{ secrets.GOOGLE_AI_API_KEY }}
+          GOOGLE_PLACES_API_KEY:      ${{ secrets.GOOGLE_PLACES_API_KEY }}
+          DATABASE_URL:               ${{ secrets.DATABASE_URL }}
+          GOOGLE_SERVICE_ACCOUNT_FILE: ./service-account.json
+          SKIP_OSM:                   'true'
+          PLACES_BATCH:               ${{ github.event.inputs.places_batch || '400' }}
+          MAPS_BATCH:                 '20'
+          SCRAPE_HEADLESS:            'true'
+          BULK_NICHE:                 ${{ github.event.inputs.bulk_niche || '' }}
+        run: npx tsx src/scripts/scrape-bulk.ts

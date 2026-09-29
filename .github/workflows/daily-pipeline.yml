@@ -1,0 +1,80 @@
+name: Daily AI Pipeline
+
+on:
+  schedule:
+    # 9 AM PST Mon–Fri (17:00 UTC)
+    - cron: '0 17 * * 1-5'
+  workflow_dispatch:
+    inputs:
+      niche:
+        description: 'Niche (hvac, roofing, dentist, medspa, lawfirm, cleaning, auto-detailing)'
+        default: 'hvac'
+      metro:
+        description: 'Metro name from cities.ts (blank = auto-rotate)'
+        default: ''
+      count:
+        description: 'Number of leads to process'
+        default: '5'
+      dry_run:
+        description: 'Dry run (true/false)'
+        default: 'false'
+
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: pipeline/package-lock.json
+
+      - name: Install pipeline deps
+        working-directory: pipeline
+        run: npm ci
+
+      - name: Write service account JSON
+        run: |
+          echo '${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}' > pipeline/service-account.json
+
+      - name: Run pipeline
+        working-directory: pipeline
+        env:
+          GOOGLE_AI_API_KEY:          ${{ secrets.GOOGLE_AI_API_KEY }}
+          GOOGLE_PLACES_API_KEY:      ${{ secrets.GOOGLE_PLACES_API_KEY }}
+          HUGGING_FACE_API_KEY:       ${{ secrets.HUGGING_FACE_API_KEY }}
+          FIRECRAWL_URL:              https://api.firecrawl.dev
+          FIRECRAWL_API_KEY:          ${{ secrets.FIRECRAWL_API_KEY }}
+          GITHUB_TOKEN:               ${{ secrets.PIPELINE_GITHUB_TOKEN }}
+          CLOUDFLARE_TOKEN:           ${{ secrets.CLOUDFLARE_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID:      ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          RESEND_API_KEY:             ${{ secrets.RESEND_API_KEY }}
+          OUTREACH_FROM_EMAIL:        ${{ secrets.OUTREACH_FROM_EMAIL }}
+          DATABASE_URL:               ${{ secrets.DATABASE_URL }}
+          LEADS_SHEET_ID:             ${{ secrets.LEADS_SHEET_ID }}
+          GOOGLE_SERVICE_ACCOUNT_FILE: ./service-account.json
+          TEMPLATE_OWNER:             pavankumarharati
+          TEMPLATE_REPO:              websitedeveloper
+          DEPLOY_OWNER:               pavankumarharati
+          NICHE:                      ${{ github.event.inputs.niche || 'hvac' }}
+          COUNT:                      ${{ github.event.inputs.count || '5' }}
+          DRY_RUN:                    ${{ github.event.inputs.dry_run || 'false' }}
+        run: |
+          METRO="${{ github.event.inputs.metro }}"
+          if [ -n "$METRO" ]; then
+            npx tsx src/auto-run.ts --niche="${{ github.event.inputs.niche || 'hvac' }}" --metro="$METRO" --count="${{ github.event.inputs.count || '5' }}"
+          else
+            npx tsx src/auto-run.ts --count="${{ github.event.inputs.count || '5' }}"
+          fi
+
+      - name: Upload pipeline logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pipeline-logs-${{ github.run_id }}
+          path: pipeline/*.log
+          if-no-files-found: ignore

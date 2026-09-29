@@ -1,0 +1,74 @@
+node_modules/
+.next/
+dist/
+out/
+*.tsbuildinfo
+.env
+.env.local
+*.log
+.DS_Store
+pipeline/service-account.json
+pipeline/webcrew-gbp-sa.json
+
+# Screenshots from testing (root-level only)
+/*.jpeg
+/*.jpg
+/*.png
+/*.MP4
+
+# Template public assets ARE tracked (negation would be complex — use path-specific ignore)
+# Pipeline/admin screenshots
+pipeline/**/*.png
+pipeline/**/*.jpeg
+admin/**/*.png
+.playwright-mcp/
+
+# Editor / agent state
+.claude/
+.agents/skills/
+
+# Build artifacts
+my-website/out/
+my-website/.next/
+admin/.next/
+admin/tsconfig.tsbuildinfo
+templates/*/out/
+templates/*/.next/
+templates/*/tsconfig.tsbuildinfo
+webcrew/out/
+webcrew
+my-website/
+.vercel
+*.mp4
+vercel.json
+admin/.env.local
+admin/.env*.local
+
+# Local datasets / imports
+admin/Yelp/
+pipeline/**/*.bak-*
+pipeline/*.plist
+
+# Generated template scaffolding / caches
+templates/*/next-env.d.ts
+templates/*/src/app/page.tsx.bak
+webcrew-vertex-sa.json
+webcrew-501006-sa.json
+pipeline/dedup-backups/
+pipeline/rebuild-candidates/
+
+# Cloned reference repos (design-resources/REFERENCE.md is the distilled doc, keep that)
+design-resources/react-bits/
+design-resources/lenis/
+design-resources/open-seo/
+design-resources/daisyui/
+design-resources/galaxy/
+design-resources/ui/
+
+# One-off local repair scripts
+pipeline/src/scripts/patch-lusterfinish-repo.ts
+pipeline/src/scripts/rebuild-lusterfinish.ts
+strix_runs/
+
+# Local-only sheet-leads cache (admin dashboard, never deployed)
+admin/.local-data/

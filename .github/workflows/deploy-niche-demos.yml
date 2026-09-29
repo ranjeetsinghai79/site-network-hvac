@@ -1,0 +1,120 @@
+name: Deploy Niche Demos → Cloudflare Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'templates/**'
+      - 'packages/core/**'
+      - '.github/workflows/deploy-niche-demos.yml'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - niche: dentist
+            project: wcd-dentist
+            business: Bright Smile Dental
+          - niche: medspa
+            project: wcd-medspa
+            business: Luxe Aesthetics MedSpa
+          - niche: cleaning
+            project: wcd-cleaning
+            business: Spotless Home Cleaning
+          - niche: remodeling
+            project: wcd-remodeling
+            business: Premier Home Remodeling
+          - niche: lawfirm
+            project: wcd-lawfirm
+            business: Johnson Law Firm
+          - niche: roofing
+            project: wcd-roofing
+            business: Elite Roofing Co
+          - niche: junk-removal
+            project: wcd-junk-removal
+            business: Quick Junk Removal
+          - niche: daycare
+            project: wcd-daycare
+            business: Little Stars Daycare
+          - niche: auto-detailing
+            project: wcd-auto-detailing
+            business: Shine Auto Detailing
+          - niche: restaurant
+            project: wcd-restaurant
+            business: Minerva Grand
+          - niche: salon
+            project: wcd-salon
+            business: Luxe Hair Studio
+          - niche: barbershop
+            project: wcd-barbershop
+            business: Sharp Edge Barbershop
+          - niche: luxury-realestate
+            project: wcd-luxury-realestate
+            business: ARQ Real Estate
+          - niche: plumbing
+            project: wcd-plumbing
+            business: FlowRight Plumbing
+          - niche: tree-services
+            project: wcd-tree-services
+            business: TreePros of Tracy
+          - niche: landscaping
+            project: wcd-landscaping
+            business: GreenScape Landscaping
+          - niche: pressure-washing
+            project: wcd-pressure-washing
+            business: HydroBlast Pro
+          - niche: foundation-repair
+            project: wcd-foundation-repair
+            business: Solid Ground Foundation Repair
+          - niche: basement-waterproofing
+            project: wcd-basement-waterproofing
+            business: DryShield Waterproofing
+          - niche: epoxy-flooring
+            project: wcd-epoxy-flooring
+            business: IronCoat Epoxy Floors
+          - niche: septic-services
+            project: wcd-septic-services
+            business: AllClear Septic Services
+          - niche: skin-clinic
+            project: wcd-skin-clinic
+            business: Glow Skin Clinic
+          - niche: iv-therapy
+            project: wcd-iv-therapy
+            business: Revive IV Therapy
+          - niche: nail-studio
+            project: wcd-nail-studio
+            business: Luxe Nail Studio
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build ${{ matrix.niche }} template
+        run: npm run build --workspace=templates/${{ matrix.niche }}
+        env:
+          BUSINESS_NAME: ${{ matrix.business }}
+          BUSINESS_NICHE: ${{ matrix.niche }}
+          NEXT_TELEMETRY_DISABLED: 1
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          wranglerVersion: '3.90.0'
+          command: pages deploy templates/${{ matrix.niche }}/out --project-name=${{ matrix.project }} --commit-dirty=true

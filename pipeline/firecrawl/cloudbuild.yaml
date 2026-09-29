@@ -1,0 +1,18 @@
+steps:
+  # Build Firecrawl from source (clones GitHub, builds, packages)
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-t'
+      - 'us-central1-docker.pkg.dev/$PROJECT_ID/webcrew/firecrawl:latest'
+      - '-f'
+      - 'Dockerfile'
+      - '.'
+
+images:
+  - 'us-central1-docker.pkg.dev/$PROJECT_ID/webcrew/firecrawl:latest'
+
+options:
+  machineType: 'E2_HIGHCPU_8'
+  logging: CLOUD_LOGGING_ONLY
+timeout: '1800s'

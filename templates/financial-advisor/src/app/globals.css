@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap');
+@import "tailwindcss";
+@source "../../../../packages/core/src";
+@import "@core/web/styles";
+
+/* ═══════════════════════════════════════════════════════════════
+   financial-advisor · theme=clean (prestige navy/gold override)
+   ═══════════════════════════════════════════════════════════════ */
+:root {
+  --font-display: 'Playfair Display', serif;
+  --font-body:    'Inter', sans-serif;
+}
+
+[data-theme="clean"] {
+  /* Backgrounds */
+  --brand-bg:           #080C12;
+  --brand-bg-2:         #0C1218;
+  --brand-bg-mid:       #0C1218;
+  --brand-bg-section:   #0C1218;
+  --brand-surface:      #111822;
+
+  /* Accent */
+  --brand-accent:       #C9A55A;
+  --brand-accent-light: #E8CA80;
+  --brand-accent-glow:  rgba(201,165,90,0.25);
+  --brand-rule:         #C9A55A;
+
+  /* Text */
+  --brand-fg:           #E8E0D0;
+  --brand-fg-muted:     rgba(232,224,208,0.55);
+  --brand-fg-sub:       rgba(232,224,208,0.35);
+  --brand-fg-ghost:     rgba(232,224,208,0.04);
+  --brand-text:         #E8E0D0;
+  --brand-muted:        rgba(232,224,208,0.45);
+
+  /* Cards & borders — NO WHITE */
+  --brand-card-bg:      #0F1825;
+  --brand-card-border:  rgba(201,165,90,0.12);
+  --brand-input-bg:     #0C1420;
+  --brand-input-border: rgba(201,165,90,0.2);
+  --brand-border:       rgba(201,165,90,0.15);
+
+  /* Blobs, particles */
+  --brand-blob-1:       rgba(201,165,90,0.10);
+  --brand-blob-2:       rgba(80,110,170,0.07);
+  --brand-particle:     rgba(201,165,90,0.35);
+
+  /* Gradients */
+  --brand-grad-from:    #C9A55A;
+  --brand-grad-to:      #E8CA80;
+  --brand-btn-from:     #C9A55A;
+  --brand-btn-to:       #B8944A;
+
+  /* Shadows */
+  --shadow-card:        0 4px 24px -4px rgba(0,0,0,0.35);
+  --shadow-cta:         0 8px 32px -4px rgba(201,165,90,0.3);
+  --shadow-nav:         0 2px 16px rgba(0,0,0,0.3);
+}
+
+/* Loading screen dark prestige */
+.loading-screen {
+  background: #06090E !important;
+}
+.loading-screen .aurora-blob:first-child {
+  background: radial-gradient(ellipse, rgba(201,165,90,0.22) 0%, transparent 70%) !important;
+}
+.loading-screen .aurora-blob:last-child {
+  background: radial-gradient(ellipse, rgba(80,110,170,0.12) 0%, transparent 70%) !important;
+}
+
+/* Ticker */
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: ticker-scroll 38s linear infinite;
+}
+.ticker-track:hover { animation-play-state: paused; }

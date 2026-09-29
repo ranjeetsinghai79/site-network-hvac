@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+@source "../../../../packages/core/src";
+@import "@core/web/styles";
+
+/* ═══════════════════════════════════════════════════════════════
+   roofing · Storm Command — dark slate + urgent red-orange
+   ═══════════════════════════════════════════════════════════════ */
+:root {
+  --font-display: 'Montserrat', sans-serif;
+  --font-body:    'Inter', sans-serif;
+}
+
+[data-theme="clean"] {
+  --brand-accent:         #EA580C;
+  --brand-accent-light:   #FB923C;
+  --brand-accent-glow:    rgba(234,88,12,0.25);
+  --brand-grad-from:      #FB923C;
+  --brand-grad-to:        #C2410C;
+  --brand-rule:           #EA580C;
+  --shadow-cta:           0 8px 32px -4px rgba(234,88,12,0.4);
+
+  --brand-bg:             #08090B;
+  --brand-bg-2:           #0D0F12;
+  --brand-bg-card:        #111316;
+  --brand-bg-card-hover:  #161A1F;
+  --brand-bg-section:     #0D0F12;
+  --brand-card-bg:        #111316;
+  --brand-card-border:    rgba(234,88,12,0.12);
+  --brand-border:         rgba(255,255,255,0.06);
+  --brand-border-hover:   rgba(234,88,12,0.35);
+
+  --brand-particle:       rgba(251,146,60,0.4);
+  --brand-blob-1:         rgba(234,88,12,0.09);
+  --brand-blob-2:         rgba(239,68,68,0.06);
+
+  --brand-fg:             #F5F5F5;
+  --brand-fg-muted:       rgba(245,245,245,0.5);
+  --brand-fg-subtle:      rgba(245,245,245,0.25);
+  --brand-fg-sub:         rgba(245,245,245,0.45);
+
+  --brand-gradient:       linear-gradient(135deg, #FB923C 0%, #C2410C 100%);
+  --brand-gradient-dark:  linear-gradient(180deg, #08090B 0%, #0D0F12 100%);
+
+  --shadow-card:          0 1px 3px rgba(0,0,0,0.6), 0 4px 16px rgba(0,0,0,0.3);
+  --grid-line:            rgba(255,255,255,0.018);
+}
+
+.loading-screen {
+  background: #08090B !important;
+}
+.loading-screen .aurora-blob:first-child {
+  background: radial-gradient(ellipse, rgba(234,88,12,0.2) 0%, transparent 70%) !important;
+}
+.loading-screen .aurora-blob:last-child {
+  background: radial-gradient(ellipse, rgba(239,68,68,0.12) 0%, transparent 70%) !important;
+}
+
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: ticker-scroll 30s linear infinite;
+}
+.ticker-track:hover { animation-play-state: paused; }

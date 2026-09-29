@@ -1,0 +1,25 @@
+import { Nav, Hero, ScrollHero, Services, WhyUs, Reviews, ServiceAreas, Contact, Footer } from "@core/web"
+import { PackagesSection } from "@/components/packages-section"
+import { config } from "@/lib/config"
+
+export default function Home() {
+  const isPremium = config.tier === "premium"
+  return (
+    <>
+      <Nav config={config} scrolledTheme="light" />
+      <main>
+        {isPremium
+          ? <ScrollHero config={config} videoSrc={config.heroVideo ?? "/hero-bg.mp4"} posterSrc="/hero-1.jpg" />
+          : <Hero config={config} posterSrc="/hero-1.jpg" />
+        }
+        <Services config={config} layout="zigzag" />
+        <PackagesSection config={config} />
+        <WhyUs config={config} />
+        <Reviews config={config} ctaText={`Book your detail — ${config.business.review_count}+ vehicles transformed`} />
+        <ServiceAreas config={config} />
+        <Contact config={config} heading="Book Your Detail" paragraph="Not sure which package? We'll inspect your paint and recommend for free." submitText="Book My Detail" />
+      </main>
+      <Footer config={config} />
+    </>
+  )
+}

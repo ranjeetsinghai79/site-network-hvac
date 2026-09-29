@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Lato:wght@300;400;700&display=swap');
+@import "tailwindcss";
+@source "../../../../packages/core/src";
+@import "@core/web/styles";
+
+/* ═══════════════════════════════════════════════════════════════
+   medspa · theme=champagne (warm ivory / champagne gold)
+   ═══════════════════════════════════════════════════════════════ */
+:root {
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body:    'Lato', sans-serif;
+  --medspa-rose:  #A83358;
+  --medspa-rose-hover: #8D2848;
+  --medspa-rose-glow:  rgba(168, 51, 88, 0.28);
+}
+
+/* Loading screen always dark charcoal regardless of light theme */
+.loading-screen {
+  background: #1E1915 !important;
+}
+.loading-screen .aurora-blob:first-child {
+  background: radial-gradient(ellipse, rgba(184,149,90,0.28) 0%, transparent 70%) !important;
+}
+.loading-screen .aurora-blob:last-child {
+  background: radial-gradient(ellipse, rgba(168,51,88,0.18) 0%, transparent 70%) !important;
+}
+
+/* Medspa hero always dark regardless of champagne theme */
+.medspa-hero-section {
+  background: #1E1915;
+}
+
+/* Override nav CTA pill to use rose on scroll */
+.medspa-nav-cta {
+  background: var(--medspa-rose) !important;
+  color: #fff !important;
+}
+
+/* Gold section divider line */
+.champagne-rule {
+  width: 48px;
+  height: 1px;
+  background: var(--brand-accent);
+  display: block;
+}
+
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: ticker-scroll 34s linear infinite;
+}
+.ticker-track:hover { animation-play-state: paused; }

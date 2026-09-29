@@ -1,0 +1,42 @@
+name: Deploy HVAC Demo → Cloudflare Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'templates/hvac/**'
+      - 'packages/core/**'
+      - '.github/workflows/deploy-hvac-demo.yml'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build HVAC template
+        run: npm run build --workspace=templates/hvac
+        env:
+          BUSINESS_NAME: ProFix HVAC & Plumbing
+          BUSINESS_NICHE: hvac
+          NEXT_TELEMETRY_DISABLED: 1
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy templates/hvac/out --project-name=profix-hvac-demo --commit-dirty=true

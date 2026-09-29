@@ -1,0 +1,457 @@
+/* ═══════════════════════════════════════════════════════════════
+   @core/web — UTILITIES
+   Reusable classes referenced by components and templates.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Ken Burns slow zoom + pan (cinematic still hero) ─────────── */
+@keyframes ken-burns {
+  0%   { transform: scale(1.08) translate(0, 0); }
+  50%  { transform: scale(1.18) translate(-1.5%, -1%); }
+  100% { transform: scale(1.08) translate(0, 0); }
+}
+.ken-burns {
+  animation: ken-burns 30s ease-in-out infinite;
+  will-change: transform;
+  transform-origin: center center;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ken-burns { animation: none; }
+}
+
+/* ── Font family utilities ────────────────────────────────────── */
+.font-display { font-family: var(--font-display, 'Rubik', system-ui, sans-serif); }
+.font-body    { font-family: var(--font-body, 'Nunito Sans', system-ui, sans-serif); }
+
+/* ── Scroll progress bar (top of viewport) ────────────────────── */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: var(--scroll-pct, 0%);
+  background: linear-gradient(90deg, var(--brand-accent), var(--brand-accent-light));
+  box-shadow: 0 0 12px var(--brand-accent-glow);
+  z-index: 9998;
+  pointer-events: none;
+  transition: width 0.05s linear;
+}
+
+/* ── Word reveal clip (SplitText) ─────────────────────────────── */
+.word-wrap  { display: inline-block; overflow: hidden; vertical-align: bottom; white-space: pre; }
+.word-inner { display: inline-block; white-space: pre; }
+
+/* Propagate text-clip gradient to inline-block children */
+.text-gradient .word-inner,
+.text-gradient-animate .word-inner,
+.text-gradient .word-wrap,
+.text-gradient-animate .word-wrap {
+  background: inherit;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* ── Aurora blobs ─────────────────────────────────────────────── */
+@keyframes aurora-drift {
+  0%, 100% { transform: translate(0,0) scale(1); opacity: 0.9; }
+  33%      { transform: translate(60px,-40px) scale(1.12); opacity: 1; }
+  66%      { transform: translate(-40px,30px) scale(0.93); opacity: 0.7; }
+}
+.aurora-blob-1 {
+  background: radial-gradient(ellipse at center, var(--brand-blob-1) 0%, transparent 70%);
+  animation: aurora-drift 14s ease-in-out infinite;
+  filter: blur(80px);
+}
+.aurora-blob-2 {
+  background: radial-gradient(ellipse at center, var(--brand-blob-2) 0%, transparent 70%);
+  animation: aurora-drift 18s ease-in-out infinite reverse;
+  filter: blur(80px);
+}
+.aurora-blob {
+  border-radius: 9999px;
+  filter: blur(80px);
+  pointer-events: none;
+  animation: aurora-drift 14s ease-in-out infinite alternate;
+}
+
+/* ── Gradient text ────────────────────────────────────────────── */
+.text-gradient {
+  background: linear-gradient(135deg, var(--brand-grad-from), var(--brand-grad-to));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+@keyframes gradient-shimmer {
+  0%   { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+.text-gradient-animate {
+  background: linear-gradient(135deg, var(--brand-grad-from), var(--brand-grad-to), var(--brand-grad-from));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  animation: gradient-shimmer 4s linear infinite;
+}
+
+/* ── Section label (small uppercase) ──────────────────────────── */
+.section-label {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--brand-accent);
+  margin-bottom: 1rem;
+}
+
+/* ── Brand rule ───────────────────────────────────────────────── */
+.brand-rule { width: 2.5rem; height: 1px; background: var(--brand-accent); margin: 1.25rem 0; }
+.brand-rule-center { margin: 1.25rem auto; }
+
+/* ── Glass card ───────────────────────────────────────────────── */
+.glass-dark {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+.glass-dark:hover {
+  background: rgba(255,255,255,0.05);
+  border-color: color-mix(in srgb, var(--brand-accent) 25%, transparent);
+}
+
+/* ── Primary button (filled) ──────────────────────────────────── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  background: linear-gradient(135deg, var(--brand-accent), var(--brand-accent-light), var(--brand-accent));
+  background-size: 200% auto;
+  color: #fff;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+  padding: 0.85rem 1.75rem;
+  border-radius: 9999px;
+  transition: transform 0.3s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.3s ease;
+  box-shadow: var(--shadow-cta);
+  cursor: pointer;
+  animation: gradient-shimmer 3s linear infinite;
+}
+.btn-primary:hover  { transform: translateY(-2px) scale(1.02); }
+.btn-primary:active { transform: translateY(0) scale(0.98); }
+
+/* ── Ghost button (bordered) ──────────────────────────────────── */
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  background: transparent;
+  color: #fff;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  padding: 0.85rem 1.75rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255,255,255,0.2);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.btn-ghost:hover { border-color: var(--brand-accent); color: var(--brand-accent); }
+
+/* ── Accent badge (with pulse dot) ────────────────────────────── */
+.accent-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: color-mix(in srgb, var(--brand-accent) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--brand-accent) 30%, transparent);
+  color: var(--brand-accent-light);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 0.375rem 1rem;
+  border-radius: 9999px;
+}
+.accent-dot {
+  width: 0.4rem;
+  height: 0.4rem;
+  background: var(--brand-accent);
+  border-radius: 9999px;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.5; transform: scale(0.8); }
+}
+
+/* ── Button reset — eliminate browser default white hover flash ── */
+button {
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+}
+button:focus-visible {
+  outline: 2px solid var(--brand-accent, #6366F1);
+  outline-offset: 2px;
+}
+/* No-op rule: inline styles beat CSS for specific background values.
+   This prevents any remaining UA-sheet hover background leaking through. */
+button:not([style]):hover {
+  background: transparent;
+}
+
+/* ── Hover lift ───────────────────────────────────────────────── */
+.hover-lift {
+  transition: transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.4s ease;
+}
+.hover-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px -12px rgba(0,0,0,0.4);
+}
+
+/* ── Shimmer (skeleton) ───────────────────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+/* ── Image reveal wrapper ─────────────────────────────────────── */
+.img-reveal { clip-path: inset(0 100% 0 0); }
+
+/* ── 3D tilt prep ─────────────────────────────────────────────── */
+.tilt-3d, .tilt-3d-inner { will-change: transform; transform-style: preserve-3d; }
+
+/* ── Hero + footer always have dark backgrounds — restore white text ── */
+[data-theme="clean"] #hero .text-white,
+[data-theme="clean"] footer .text-white           { color: #fff !important; }
+[data-theme="clean"] #hero .text-white\/90,
+[data-theme="clean"] footer .text-white\/90       { color: rgba(255,255,255,0.90) !important; }
+[data-theme="clean"] #hero .text-white\/65,
+[data-theme="clean"] footer .text-white\/65       { color: rgba(255,255,255,0.65) !important; }
+[data-theme="clean"] #hero .text-white\/55,
+[data-theme="clean"] footer .text-white\/55       { color: rgba(255,255,255,0.55) !important; }
+[data-theme="clean"] #hero .text-white\/50,
+[data-theme="clean"] footer .text-white\/50       { color: rgba(255,255,255,0.50) !important; }
+[data-theme="clean"] #hero .text-white\/45,
+[data-theme="clean"] footer .text-white\/45       { color: rgba(255,255,255,0.45) !important; }
+[data-theme="clean"] #hero .text-white\/40,
+[data-theme="clean"] footer .text-white\/40       { color: rgba(255,255,255,0.40) !important; }
+[data-theme="clean"] #hero .text-white\/30,
+[data-theme="clean"] footer .text-white\/30       { color: rgba(255,255,255,0.30) !important; }
+[data-theme="clean"] #hero .text-white\/20,
+[data-theme="clean"] footer .text-white\/20       { color: rgba(255,255,255,0.20) !important; }
+[data-theme="clean"] #hero .border-white\/10      { border-color: rgba(255,255,255,0.10) !important; }
+[data-theme="clean"] footer .border-white\/10     { border-color: rgba(255,255,255,0.10) !important; }
+[data-theme="clean"] #hero .btn-ghost             { color: #fff; border-color: rgba(255,255,255,0.25); }
+[data-theme="clean"] #hero .btn-ghost:hover       { border-color: var(--brand-accent); color: var(--brand-accent); }
+
+/* ── Clean theme: invert Tailwind text-white classes to dark fg ── */
+[data-theme="clean"] .text-white                { color: var(--brand-fg) !important; }
+[data-theme="clean"] .text-white\/90            { color: color-mix(in srgb, var(--brand-fg) 90%, transparent) !important; }
+[data-theme="clean"] .text-white\/85            { color: color-mix(in srgb, var(--brand-fg) 85%, transparent) !important; }
+[data-theme="clean"] .text-white\/80            { color: color-mix(in srgb, var(--brand-fg) 80%, transparent) !important; }
+[data-theme="clean"] .text-white\/75            { color: color-mix(in srgb, var(--brand-fg) 72%, transparent) !important; }
+[data-theme="clean"] .text-white\/70            { color: color-mix(in srgb, var(--brand-fg) 68%, transparent) !important; }
+[data-theme="clean"] .text-white\/65            { color: color-mix(in srgb, var(--brand-fg) 65%, transparent) !important; }
+[data-theme="clean"] .text-white\/60            { color: color-mix(in srgb, var(--brand-fg) 60%, transparent) !important; }
+[data-theme="clean"] .text-white\/55            { color: color-mix(in srgb, var(--brand-fg) 55%, transparent) !important; }
+[data-theme="clean"] .text-white\/50            { color: color-mix(in srgb, var(--brand-fg) 55%, transparent) !important; }
+[data-theme="clean"] .text-white\/45            { color: color-mix(in srgb, var(--brand-fg) 50%, transparent) !important; }
+[data-theme="clean"] .text-white\/40            { color: color-mix(in srgb, var(--brand-fg) 45%, transparent) !important; }
+[data-theme="clean"] .text-white\/30            { color: color-mix(in srgb, var(--brand-fg) 38%, transparent) !important; }
+[data-theme="clean"] .text-white\/20            { color: color-mix(in srgb, var(--brand-fg) 28%, transparent) !important; }
+
+/* Clean: white borders → dark subtle borders (hero/footer overrides above take priority) */
+[data-theme="clean"] .border-white\/10   { border-color: rgba(15,23,42,0.08) !important; }
+[data-theme="clean"] .border-white\/15   { border-color: rgba(15,23,42,0.10) !important; }
+[data-theme="clean"] .border-white\/20   { border-color: rgba(15,23,42,0.12) !important; }
+
+/* Clean: ghost button + borders flip to dark */
+[data-theme="clean"] .btn-ghost {
+  color: var(--brand-fg);
+  border-color: rgba(15,23,42,0.18);
+}
+[data-theme="clean"] .btn-ghost:hover {
+  border-color: var(--brand-accent);
+  color: var(--brand-accent);
+}
+
+/* Clean: glass card → plain white card with shadow */
+[data-theme="clean"] .glass-dark {
+  background: var(--brand-card-bg);
+  border-color: var(--brand-card-border);
+  box-shadow: var(--shadow-card);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+[data-theme="clean"] .glass-dark:hover {
+  /* derive from card bg — hardcoded near-white broke dark injected designs (white card, invisible text) */
+  background: color-mix(in srgb, var(--brand-card-bg) 94%, var(--brand-accent) 6%);
+  border-color: color-mix(in srgb, var(--brand-accent) 30%, transparent);
+}
+
+/* ── Clean theme: text-white → dark fg (except #hero and footer which have dark backgrounds) ── */
+[data-theme="clean"] section:not(#hero) .text-white {
+  color: var(--brand-fg) !important;
+}
+[data-theme="clean"] section:not(#hero) [class*="text-white/"] {
+  color: var(--brand-fg-muted) !important;
+}
+/* Input/textarea placeholders in light theme */
+[data-theme="clean"] input::placeholder,
+[data-theme="clean"] textarea::placeholder,
+[data-theme="clean"] select option {
+  color: var(--brand-fg-muted) !important;
+  opacity: 1;
+}
+
+/* ── Champagne theme: glass card → warm white card with gold border ── */
+[data-theme="champagne"] .glass-dark {
+  background: var(--brand-card-bg);
+  border-color: var(--brand-card-border);
+  box-shadow: var(--shadow-card);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+[data-theme="champagne"] .glass-dark:hover {
+  background: color-mix(in srgb, var(--brand-card-bg) 94%, var(--brand-accent) 6%);
+  border-color: color-mix(in srgb, var(--brand-accent) 28%, transparent);
+}
+
+/* Champagne: text-white → dark charcoal (excludes hero — always dark photo bg) */
+[data-theme="champagne"] section:not(#hero) .text-white {
+  color: var(--brand-fg) !important;
+}
+[data-theme="champagne"] section:not(#hero) [class*="text-white\/"] {
+  color: var(--brand-fg-muted) !important;
+}
+
+/* Suppress gradient text in champagne — solid gold is more legible on ivory */
+[data-theme="champagne"] .text-gradient,
+[data-theme="champagne"] .text-gradient-animate {
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  -webkit-text-fill-color: var(--brand-accent) !important;
+  color: var(--brand-accent) !important;
+  animation: none !important;
+}
+[data-theme="champagne"] .text-gradient .word-inner,
+[data-theme="champagne"] .text-gradient-animate .word-inner,
+[data-theme="champagne"] .text-gradient .word-wrap,
+[data-theme="champagne"] .text-gradient-animate .word-wrap {
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  -webkit-text-fill-color: var(--brand-accent) !important;
+  color: var(--brand-accent) !important;
+}
+
+/* Divider lines inside glass-dark cards (border-white/10 → visible on light) */
+[data-theme="champagne"] section:not(#hero) .border-t {
+  border-color: var(--brand-card-border) !important;
+}
+[data-theme="champagne"] section:not(#hero) [class*="bg-white\/"] {
+  background-color: var(--brand-card-border) !important;
+}
+
+/* Input / textarea placeholders in champagne light context */
+[data-theme="champagne"] input::placeholder,
+[data-theme="champagne"] textarea::placeholder,
+[data-theme="champagne"] select option {
+  color: var(--brand-fg-sub) !important;
+  opacity: 1;
+}
+
+/* ── ScrollTrigger safety net — elements must never stay invisible forever ── */
+/* If GSAP sets opacity:0 but trigger never fires (loading screen timing), */
+/* force visible after 3s via animation. Does not affect GSAP-animated elements */
+/* because GSAP sets inline opacity which overrides this during animation. */
+@keyframes reveal-fallback {
+  to { opacity: 1; transform: none; }
+}
+.gsap-reveal-fallback {
+  animation: reveal-fallback 0.001s 3s forwards;
+}
+
+/* ── Mobile sticky CTA bar ──────────────────────────────────────────────────── */
+.mobile-cta-bar {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  padding: 0.75rem 1rem;
+  padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
+  background: rgba(0, 0, 0, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  gap: 0.625rem;
+}
+
+@media (max-width: 767px) {
+  .mobile-cta-bar {
+    display: flex;
+  }
+}
+
+.mobile-cta-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.7rem 1rem;
+  border-radius: 0.625rem;
+  font-family: var(--font-body, sans-serif);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: opacity 0.15s, transform 0.15s;
+  white-space: nowrap;
+}
+
+.mobile-cta-btn:active {
+  transform: scale(0.97);
+  opacity: 0.9;
+}
+
+.mobile-cta-btn--primary {
+  background: linear-gradient(135deg, var(--brand-accent), var(--brand-accent-light, var(--brand-accent)));
+  color: #fff;
+}
+
+.mobile-cta-btn--ghost {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* Push page content up so bar doesn't cover footer on mobile */
+@media (max-width: 767px) {
+  body {
+    padding-bottom: calc(4rem + env(safe-area-inset-bottom));
+  }
+}

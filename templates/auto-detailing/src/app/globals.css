@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+@source "../../../../packages/core/src";
+@import "@core/web/styles";
+
+/* ═══════════════════════════════════════════════════════════════
+   auto-detailing · Midnight Cobalt — dark premium detailing brand
+   ═══════════════════════════════════════════════════════════════ */
+:root {
+  --font-display: 'Rajdhani', sans-serif;
+  --font-body:    'Inter', sans-serif;
+}
+
+/* Brand token override — cobalt blue + midnight black */
+[data-theme="clean"] {
+  --brand-accent:         #3B82F6;
+  --brand-accent-light:   #60A5FA;
+  --brand-accent-glow:    rgba(59,130,246,0.25);
+  --brand-grad-from:      #60A5FA;
+  --brand-grad-to:        #2563EB;
+  --brand-rule:           #3B82F6;
+  --shadow-cta:           0 8px 32px -4px rgba(59,130,246,0.4);
+
+  /* deep midnight backgrounds */
+  --brand-bg:             #04080F;
+  --brand-bg-2:           #070D1A;
+  --brand-bg-card:        #0B1221;
+  --brand-bg-card-hover:  #0E1830;
+  --brand-bg-section:     #070D1A;
+  --brand-card-bg:        #0B1221;
+  --brand-card-border:    rgba(59,130,246,0.12);
+  --brand-border:         rgba(255,255,255,0.07);
+  --brand-border-hover:   rgba(59,130,246,0.35);
+
+  /* particles + aurora blobs */
+  --brand-particle:       rgba(96,165,250,0.45);
+  --brand-blob-1:         rgba(59,130,246,0.09);
+  --brand-blob-2:         rgba(99,102,241,0.06);
+
+  /* text */
+  --brand-fg:             #F0F6FF;
+  --brand-fg-muted:       rgba(240,246,255,0.5);
+  --brand-fg-subtle:      rgba(240,246,255,0.25);
+  --brand-fg-sub:         rgba(240,246,255,0.45);
+
+  /* gradients */
+  --brand-gradient:       linear-gradient(135deg, #60A5FA 0%, #2563EB 100%);
+  --brand-gradient-dark:  linear-gradient(180deg, #04080F 0%, #070D1A 100%);
+
+  /* shadows */
+  --shadow-card:          0 1px 3px rgba(0,0,0,0.6), 0 4px 16px rgba(0,0,0,0.3);
+
+  /* grid overlay */
+  --grid-line:            rgba(255,255,255,0.022);
+}
+
+/* Loading screen uses midnight bg */
+.loading-screen {
+  background: #04080F !important;
+}
+.loading-screen .aurora-blob:first-child {
+  background: radial-gradient(ellipse, rgba(59,130,246,0.22) 0%, transparent 70%) !important;
+}
+.loading-screen .aurora-blob:last-child {
+  background: radial-gradient(ellipse, rgba(99,102,241,0.14) 0%, transparent 70%) !important;
+}
+
+/* Ticker keyframe */
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: ticker-scroll 28s linear infinite;
+}
+.ticker-track:hover { animation-play-state: paused; }

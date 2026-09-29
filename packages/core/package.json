@@ -1,0 +1,39 @@
+{
+  "name": "@core/web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "sideEffects": [
+    "**/*.css",
+    "**/gsap-init.ts",
+    "**/lenis-singleton.ts"
+  ],
+  "exports": {
+    ".": "./src/index.ts",
+    "./cinematic": "./src/cinematic/index.ts",
+    "./effects": "./src/effects/index.ts",
+    "./sections": "./src/sections/index.ts",
+    "./hooks": "./src/hooks/index.ts",
+    "./lib": "./src/lib/index.ts",
+    "./types": "./src/types/index.ts",
+    "./styles": "./src/styles/index.css",
+    "./styles/tokens": "./src/styles/tokens.css",
+    "./styles/utilities": "./src/styles/utilities.css"
+  },
+  "dependencies": {
+    "@gsap/react": "^2.1.2",
+    "gsap": "^3.12.7",
+    "lenis": "^1.3.4",
+    "lucide-react": "^1.12.0"
+  },
+  "peerDependencies": {
+    "next": ">=15",
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "devDependencies": {
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "typescript": "^5"
+  }
+}

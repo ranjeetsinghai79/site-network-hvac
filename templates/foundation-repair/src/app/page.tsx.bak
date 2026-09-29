@@ -1,0 +1,21 @@
+import { Nav, Hero, Services, About, WhyUs, Reviews, FAQ, ServiceAreas, Contact, Footer } from "@core/web"
+import { config } from "@/lib/config"
+
+export default function Home() {
+  return (
+    <>
+      <Nav config={config} scrolledTheme="light" />
+      <main>
+        <Hero config={config} posterSrc="/hero-1.jpg" posterBrightness={0.35} />
+        <About config={config} imageSrc="/about-1.jpg" />
+        <Services config={config} layout="zigzag" />
+        <WhyUs config={config} />
+        <Reviews config={config} ctaText={`Structural engineers on staff — ${config.business.review_count}+ foundations stabilized`} />
+        <FAQ config={config} />
+        <ServiceAreas config={config} />
+        <Contact config={config} heading="Schedule Your Free Foundation Inspection" paragraph="Cracks, settling, bowing walls — we diagnose and fix the root cause." submitText="Book Free Inspection" />
+      </main>
+      <Footer config={config} />
+    </>
+  )
+}

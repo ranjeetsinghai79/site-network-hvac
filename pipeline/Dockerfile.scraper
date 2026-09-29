@@ -1,0 +1,37 @@
+FROM node:22-slim
+
+# Playwright dependencies
+RUN apt-get update && apt-get install -y \
+    chromium \
+    chromium-driver \
+    ca-certificates \
+    fonts-liberation \
+    libnss3 \
+    libatk-bridge2.0-0 \
+    libdrm2 \
+    libxcomposite1 \
+    libxdamage1 \
+    libxrandr2 \
+    libgbm1 \
+    libxss1 \
+    libasound2 \
+    --no-install-recommends \
+  && rm -rf /var/lib/apt/lists/*
+
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+ENV PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium
+ENV CHROMIUM_FLAGS="--no-sandbox --disable-setuid-sandbox --disable-dev-shm-usage"
+
+WORKDIR /app
+
+COPY package.json ./
+RUN npm install --omit=dev --legacy-peer-deps && npm install tsx
+
+COPY tsconfig.json ./
+COPY src/ ./src/
+
+ENV NODE_ENV=production
+ENV SCRAPE_HEADLESS=true
+
+# Cloud Run Job entrypoint — SHEET_TAB passed via env
+CMD ["npx", "tsx", "src/scripts/scrape-universal.ts"]

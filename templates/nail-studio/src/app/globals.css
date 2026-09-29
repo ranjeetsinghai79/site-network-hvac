@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+@source "../../../../packages/core/src";
+@import "@core/web/styles";
+
+/* ═══════════════════════════════════════════════════════════════
+   nail-studio · theme=clean + rose/pink accent override
+   ═══════════════════════════════════════════════════════════════ */
+:root {
+  --font-display: 'Playfair Display', serif;
+  --font-body:    'Poppins', sans-serif;
+}
+
+/* Pink/rose accent override on clean white base */
+[data-theme="clean"] {
+  --brand-accent:       #DB2777;
+  --brand-accent-light: #F472B6;
+  --brand-accent-glow:  rgba(219,39,119,0.20);
+  --brand-blob-1:       rgba(219,39,119,0.07);
+  --brand-blob-2:       rgba(244,114,182,0.05);
+  --brand-particle:     rgba(219,39,119,0.18);
+  --brand-grad-from:    #F472B6;
+  --brand-grad-to:      #DB2777;
+  --brand-grid:         rgba(219,39,119,0.04);
+  --brand-rule:         #DB2777;
+  --shadow-cta:         0 8px 32px -4px rgba(219,39,119,0.30);
+}
+
+.loading-screen { background: var(--brand-bg); }
+.loading-screen .aurora-blob { background: var(--brand-blob-1); }

@@ -1,0 +1,21 @@
+import { Nav, Hero, Services, About, WhyUs, Reviews, FAQ, ServiceAreas, Contact, Footer } from "@core/web"
+import { config } from "@/lib/config"
+
+export default function Home() {
+  return (
+    <>
+      <Nav config={config} scrolledTheme="light" />
+      <main>
+        <Hero config={config} posterSrc="/hero-1.jpg" posterBrightness={0.35} />
+        <About config={config} imageSrc="/about-1.jpg" />
+        <Services config={config} layout="zigzag" />
+        <WhyUs config={config} />
+        <Reviews config={config} ctaText={`Lifetime warranty available — ${config.business.review_count}+ dry basements`} />
+        <FAQ config={config} />
+        <ServiceAreas config={config} />
+        <Contact config={config} heading="Get Your Free Waterproofing Assessment" paragraph="We find the source. We fix it permanently. Lifetime warranty on all systems." submitText="Book Free Assessment" />
+      </main>
+      <Footer config={config} />
+    </>
+  )
+}

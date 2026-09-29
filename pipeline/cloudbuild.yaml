@@ -1,0 +1,47 @@
+steps:
+  # Build and push container image to Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - build
+      - '-t'
+      - '${_REGION}-docker.pkg.dev/$PROJECT_ID/webcrew/ai-reception:$COMMIT_SHA'
+      - '-t'
+      - '${_REGION}-docker.pkg.dev/$PROJECT_ID/webcrew/ai-reception:latest'
+      - '.'
+    dir: 'pipeline'
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - push
+      - '--all-tags'
+      - '${_REGION}-docker.pkg.dev/$PROJECT_ID/webcrew/ai-reception'
+
+  # Deploy to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - run
+      - deploy
+      - ai-reception
+      - '--image=${_REGION}-docker.pkg.dev/$PROJECT_ID/webcrew/ai-reception:$COMMIT_SHA'
+      - '--region=${_REGION}'
+      - '--platform=managed'
+      - '--allow-unauthenticated'
+      - '--port=3030'
+      - '--min-instances=0'
+      - '--max-instances=5'
+      - '--concurrency=8'
+      - '--memory=1Gi'
+      - '--cpu=2'
+      - '--timeout=3600'
+      - '--update-env-vars=NODE_ENV=production'
+
+substitutions:
+  _REGION: us-central1
+
+images:
+  - '${_REGION}-docker.pkg.dev/$PROJECT_ID/webcrew/ai-reception:$COMMIT_SHA'
+  - '${_REGION}-docker.pkg.dev/$PROJECT_ID/webcrew/ai-reception:latest'
+
+options:
+  logging: CLOUD_LOGGING_ONLY

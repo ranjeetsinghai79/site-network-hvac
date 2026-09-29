@@ -1,0 +1,20 @@
+{
+  "mcpServers": {
+    "Magic": {
+      "command": "npx",
+      "args": ["-y", "@21st-dev/magic@latest", "${TWENTYFIRST_API_KEY}"]
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@latest"]
+    },
+    "firecrawl": {
+      "command": "npx",
+      "args": ["-y", "firecrawl-mcp"],
+      "env": {
+        "FIRECRAWL_API_URL": "http://localhost:3002",
+        "FIRECRAWL_API_KEY": "local"
+      }
+    }
+  }
+}

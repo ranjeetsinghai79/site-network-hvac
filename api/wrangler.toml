@@ -1,0 +1,37 @@
+name = "webcrew-api"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+
+[vars]
+NOTIFICATION_EMAIL = "leads@webcrew.app"
+CALENDLY_URL = "https://cal.com/ranjeet-singh-iw1omu/15min"
+
+# Set secrets via: npx wrangler secret put RESEND_API_KEY
+# npx wrangler secret put TWILIO_ACCOUNT_SID
+# npx wrangler secret put TWILIO_AUTH_TOKEN
+# npx wrangler secret put TWILIO_FROM_NUMBER
+# npx wrangler secret put GOOGLE_SERVICE_ACCOUNT_JSON
+# npx wrangler secret put LEADS_SHEET_ID
+# npx wrangler secret put NEON_DATABASE_URL
+# npx wrangler secret put GOOGLE_AI_API_KEY
+# npx wrangler secret put RECEPTION_SERVER_URL
+# npx wrangler secret put RECEPTION_PROVISION_SECRET
+# npx wrangler secret put CAL_WEBHOOK_SECRET
+# npx wrangler secret put HITL_SECRET
+# npx wrangler secret put STRIPE_SECRET_KEY   — Sofia's own key, for autonomous
+#   SMS-negotiated payment links (createStripeCheckoutLink in src/index.ts).
+#   Start with pipeline/.env's sk_test_ key — NOT admin/.env.local's sk_live_
+#   key. Flip to a live key only as a deliberate, separate decision.
+#
+# New routes (no extra secrets needed):
+#   POST /call-status   — Twilio missed-call recovery (set as statusCallback on client Twilio numbers)
+#   POST /cal-webhook   — Cal.com BOOKING_CREATED webhook (configure in Cal.com → Webhooks)
+#
+# Cron jobs (GCP Cloud Scheduler — run daily):
+#   npm run drip             → drip-followup.ts (day 3 + day 10 follow-ups)
+#   npm run review-requests  → send-review-requests.ts (1hr after appointment ends)
+#   npm run retention:all    → run-retention-all.ts (GBP + reviews + analytics)
+
+[[routes]]
+pattern = "api.webcrew.app/*"
+zone_name = "webcrew.app"

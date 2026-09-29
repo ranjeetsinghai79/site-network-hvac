@@ -1,0 +1,86 @@
+/*
+ * Client-facing brand override. The internal admin tool (everything outside
+ * /client/*) keeps its own dark navy/indigo theme — this scope exists
+ * because a client's dashboard/login must visually match webcrew.app (the
+ * site and checkout flow they just paid through), not the internal tool's
+ * design system. Source of truth: webcrew/src/app/globals.css's
+ * --color-* tokens. Keep these two files in sync by hand if the webcrew
+ * brand ever changes — there is no shared package between the two repos.
+ */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap');
+
+[data-client-brand] {
+  --bg:           #FFFFFF;
+  --surface:      #F3F4F3;
+  --surface-2:    #E8EAE8;
+  --border:       rgba(0, 0, 0, 0.07);
+  --border-2:     rgba(0, 0, 0, 0.14);
+  --accent:       #00C26F;
+  --accent-hover: #00A85E;
+  --accent-light: #0EA5E9;
+  --accent-dim:   rgba(0, 194, 110, 0.08);
+  --accent-dim-2: rgba(0, 194, 110, 0.16);
+  --text:         #0A0A0A;
+  --text-2:       #4B5563;
+  --muted:        #6B7280;
+
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+}
+
+[data-client-brand] h1,
+[data-client-brand] h2,
+[data-client-brand] h3 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+[data-client-brand] .gradient-brand {
+  background: linear-gradient(135deg, #00C26F 0%, #0EA5E9 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+[data-client-brand] .btn-primary {
+  background: linear-gradient(135deg, #00C26F 0%, #0EA5E9 100%) !important;
+  color: #000 !important;
+  box-shadow: 0 4px 24px rgba(0, 194, 110, 0.35);
+}
+
+/* ── Portal shell (left nav) ─────────────────────────────────────────────── */
+[data-client-brand] .portal-nav {
+  position: fixed; inset: 0 auto 0 0; width: 252px; z-index: 40;
+  display: flex; flex-direction: column; gap: 2px; padding: 18px 12px 14px;
+  background: var(--surface); border-right: 1px solid var(--border); overflow-y: auto;
+}
+[data-client-brand] .portal-main { margin-left: 252px; min-height: 100vh; }
+[data-client-brand] .portal-content { max-width: 1040px; margin: 0 auto; padding: 36px 32px 72px; }
+[data-client-brand] .portal-brand { display: flex; align-items: center; gap: 10px; padding: 4px 8px 16px; }
+[data-client-brand] .portal-logo { width: 34px; height: 34px; border-radius: 9px; flex-shrink: 0; display: grid; place-items: center; color: #fff; font-weight: 800; font-family: 'Plus Jakarta Sans', sans-serif; background: linear-gradient(135deg, #00C26F, #0EA5E9); }
+[data-client-brand] .portal-biz { font-size: 14px; font-weight: 800; letter-spacing: -0.02em; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+[data-client-brand] .portal-sub { font-size: 11px; color: var(--muted); }
+[data-client-brand] .portal-group { font-size: 10px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted); padding: 16px 10px 6px; }
+[data-client-brand] .portal-link { display: flex; align-items: center; gap: 11px; padding: 9px 10px; border-radius: 9px; font-size: 13.5px; font-weight: 600; color: var(--text-2); text-decoration: none; transition: background .15s, color .15s; }
+[data-client-brand] .portal-link:hover { background: var(--surface-2); color: var(--text); }
+[data-client-brand] .portal-link.active { background: var(--accent-dim-2); color: #047857; }
+[data-client-brand] .portal-link:focus-visible, [data-client-brand] .portal-signout:focus-visible, [data-client-brand] .portal-menu-btn:focus-visible { outline: 2px solid var(--accent-light); outline-offset: 2px; }
+[data-client-brand] .portal-badge { font-size: 11px; font-weight: 800; color: #B45309; background: rgba(245,158,11,0.18); border-radius: 20px; padding: 2px 8px; }
+[data-client-brand] .portal-dot { width: 8px; height: 8px; border-radius: 50%; background: #F59E0B; }
+[data-client-brand] .portal-user { border-top: 1px solid var(--border); padding: 12px 8px 0; }
+[data-client-brand] .portal-email { font-size: 12px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-bottom: 8px; }
+[data-client-brand] .portal-signout { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: var(--muted); background: transparent; border: 1px solid var(--border-2); border-radius: 7px; padding: 6px 11px; cursor: pointer; }
+[data-client-brand] .portal-topbar, [data-client-brand] .portal-scrim { display: none; }
+
+@media (max-width: 900px) {
+  [data-client-brand] .portal-topbar { display: flex; align-items: center; gap: 10px; position: sticky; top: 0; z-index: 30; height: 54px; padding: 0 12px; background: var(--surface); border-bottom: 1px solid var(--border); }
+  [data-client-brand] .portal-menu-btn { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 8px; border: 1px solid var(--border-2); background: var(--bg); color: var(--text); cursor: pointer; }
+  [data-client-brand] .portal-topbar-title { flex: 1; font-size: 14px; font-weight: 800; letter-spacing: -0.02em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  [data-client-brand] .portal-nav { transform: translateX(-100%); transition: transform .2s ease; z-index: 60; box-shadow: 4px 0 24px rgba(0,0,0,0.12); }
+  [data-client-brand] .portal-nav.open { transform: none; }
+  [data-client-brand] .portal-scrim { display: block; position: fixed; inset: 0; background: rgba(0,0,0,0.35); z-index: 50; }
+  [data-client-brand] .portal-main { margin-left: 0; }
+  [data-client-brand] .portal-content { padding: 22px 16px 56px; }
+}
+@media (prefers-reduced-motion: reduce) { [data-client-brand] .portal-nav { transition: none; } }

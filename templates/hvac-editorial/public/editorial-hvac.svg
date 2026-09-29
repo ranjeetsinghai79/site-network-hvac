@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+  <title id="title">Modern HVAC service</title><desc id="desc">Editorial illustration of a home, airflow and a service technician.</desc>
+  <defs><linearGradient id="sky" x2="1" y2="1"><stop stop-color="#142d3f"/><stop offset="1" stop-color="#071724"/></linearGradient><linearGradient id="glow" x2="1"><stop stop-color="#f5a623"/><stop offset="1" stop-color="#ffd27b"/></linearGradient></defs>
+  <rect width="1200" height="900" fill="url(#sky)"/><circle cx="950" cy="145" r="250" fill="#31627e" opacity=".22"/>
+  <path d="M0 680 380 385l325 255 160-125 335 260v125H0Z" fill="#f5f0e7" opacity=".96"/><path d="m250 560 130-104 132 104v230H250Z" fill="#071724"/><rect x="302" y="635" width="75" height="155" fill="#f5a623"/><rect x="407" y="610" width="60" height="70" fill="#d9f0fb"/>
+  <g fill="none" stroke="url(#glow)" stroke-linecap="round"><path d="M55 185c180-135 326 115 505-12s325-57 520-91" stroke-width="12" opacity=".9"/><path d="M20 258c210-108 332 119 535 5s356-51 610-116" stroke-width="5" opacity=".55"/></g>
+  <g transform="translate(760 300)"><circle cx="118" cy="74" r="52" fill="#d9f0fb"/><path d="M48 352c2-155 13-231 70-231s70 76 71 231Z" fill="#f5a623"/><path d="M74 159h90l-19 193H92Z" fill="#12364c"/><rect x="0" y="210" width="72" height="30" rx="15" fill="#d9f0fb" transform="rotate(-18 0 210)"/><rect x="158" y="202" width="80" height="30" rx="15" fill="#d9f0fb" transform="rotate(18 158 202)"/></g>
+  <text x="60" y="830" fill="#071724" font-family="Arial, sans-serif" font-size="26" font-weight="700" letter-spacing="7">COMFORT • CRAFT • CARE</text>
+</svg>

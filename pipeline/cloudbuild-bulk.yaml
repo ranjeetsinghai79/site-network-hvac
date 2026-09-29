@@ -1,0 +1,14 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - build
+      - -t
+      - us-central1-docker.pkg.dev/gen-lang-client-0844283339/webcrew/scraper-bulk:latest
+      - -f
+      - Dockerfile.bulk
+      - .
+images:
+  - us-central1-docker.pkg.dev/gen-lang-client-0844283339/webcrew/scraper-bulk:latest
+options:
+  machineType: E2_HIGHCPU_8
+timeout: 600s

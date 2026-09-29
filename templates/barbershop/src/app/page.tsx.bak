@@ -1,0 +1,21 @@
+import { Nav, Hero, Services, About, WhyUs, Reviews, FAQ, ServiceAreas, Contact, Footer } from "@core/web"
+import { config } from "@/lib/config"
+
+export default function Home() {
+  return (
+    <>
+      <Nav config={config} scrolledTheme="light" />
+      <main>
+        <Hero config={config} posterSrc="/hero-1.jpg" />
+        <About config={config} imageSrc="/hero-1.jpg" />
+        <Services config={config} layout="zigzag" />
+        <WhyUs config={config} />
+        <Reviews config={config} ctaText={`Walk in or book online — ${config.business.review_count}+ clients trust us`} />
+        <FAQ config={config} />
+        <ServiceAreas config={config} />
+        <Contact config={config} heading="Book Your Cut" paragraph="Walk-ins welcome. Book online for guaranteed slot with your preferred barber." submitText="Book My Cut" />
+      </main>
+      <Footer config={config} />
+    </>
+  )
+}

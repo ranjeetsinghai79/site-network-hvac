@@ -1,0 +1,214 @@
+/* ═══════════════════════════════════════════════════════════════
+   @core/web — THEME TOKENS
+   Every theme overrides --brand-* vars. Components read only tokens.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* DEFAULT — navy / orange (HVAC) */
+:root {
+  --brand-bg:           #0F1F3D;
+  --brand-bg-mid:       #1E3A5F;
+  --brand-bg-section:   #1A2A4F;
+  --brand-accent:       #F97316;
+  --brand-accent-light: #FB923C;
+  --brand-accent-glow:  rgba(249,115,22,0.45);
+  --brand-blob-1:       rgba(30,64,175,0.30);
+  --brand-blob-2:       rgba(249,115,22,0.18);
+  --brand-particle:     rgba(96,165,250,0.45);
+  --brand-grad-from:    #FB923C;
+  --brand-grad-to:      #F97316;
+  --brand-grid:         rgba(96,165,250,0.08);
+  --brand-rule:         #F97316;
+
+  /* Foreground text tokens — dark-mode defaults */
+  --brand-fg:           #FFFFFF;
+  --brand-fg-muted:     rgba(255,255,255,0.55);
+  --brand-fg-sub:       rgba(255,255,255,0.30);
+  --brand-fg-ghost:     rgba(255,255,255,0.04);
+  /* Card tokens — dark-mode defaults */
+  --brand-card-bg:      rgba(255,255,255,0.04);
+  --brand-card-border:  rgba(255,255,255,0.08);
+  --brand-input-bg:     rgba(255,255,255,0.05);
+  --brand-input-border: rgba(255,255,255,0.10);
+
+  --font-display: 'Rubik', sans-serif;
+  --font-body:    'Nunito Sans', sans-serif;
+
+  --shadow-card: 0 4px 24px -4px rgba(15,31,61,0.12);
+  --shadow-cta:  0 8px 32px -4px rgba(249,115,22,0.40);
+  --shadow-nav:  0 2px 16px rgba(15,31,61,0.10);
+}
+
+/* EMBER — amber / dark-brown */
+[data-theme="ember"] {
+  --brand-bg:           #1C0800;
+  --brand-bg-mid:       #3D1A00;
+  --brand-bg-section:   #2A1000;
+  --brand-accent:       #F59E0B;
+  --brand-accent-light: #FCD34D;
+  --brand-accent-glow:  rgba(245,158,11,0.50);
+  --brand-blob-1:       rgba(180,83,9,0.35);
+  --brand-blob-2:       rgba(245,158,11,0.20);
+  --brand-particle:     rgba(251,191,36,0.40);
+  --brand-grad-from:    #FCD34D;
+  --brand-grad-to:      #F59E0B;
+  --brand-grid:         rgba(245,158,11,0.07);
+  --brand-rule:         #F59E0B;
+  --shadow-cta:         0 8px 32px -4px rgba(245,158,11,0.50);
+  --font-display:       'Space Grotesk', sans-serif;
+}
+
+/* OCEAN — deep navy / electric cyan */
+[data-theme="ocean"] {
+  --brand-bg:           #040F1E;
+  --brand-bg-mid:       #0C1E3D;
+  --brand-bg-section:   #081A33;
+  --brand-accent:       #06B6D4;
+  --brand-accent-light: #22D3EE;
+  --brand-accent-glow:  rgba(6,182,212,0.45);
+  --brand-blob-1:       rgba(6,182,212,0.22);
+  --brand-blob-2:       rgba(8,145,178,0.18);
+  --brand-particle:     rgba(34,211,238,0.40);
+  --brand-grad-from:    #22D3EE;
+  --brand-grad-to:      #06B6D4;
+  --brand-grid:         rgba(6,182,212,0.06);
+  --brand-rule:         #06B6D4;
+  --shadow-cta:         0 8px 32px -4px rgba(6,182,212,0.45);
+  --font-display:       'Syne', sans-serif;
+}
+
+/* FOREST — dark green / emerald */
+[data-theme="forest"] {
+  --brand-bg:           #071910;
+  --brand-bg-mid:       #0F2819;
+  --brand-bg-section:   #0B2014;
+  --brand-accent:       #10B981;
+  --brand-accent-light: #34D399;
+  --brand-accent-glow:  rgba(16,185,129,0.45);
+  --brand-blob-1:       rgba(16,185,129,0.22);
+  --brand-blob-2:       rgba(5,150,105,0.18);
+  --brand-particle:     rgba(52,211,153,0.38);
+  --brand-grad-from:    #34D399;
+  --brand-grad-to:      #10B981;
+  --brand-grid:         rgba(16,185,129,0.06);
+  --brand-rule:         #10B981;
+  --shadow-cta:         0 8px 32px -4px rgba(16,185,129,0.45);
+  --font-display:       'DM Sans', sans-serif;
+}
+
+/* SLATE — charcoal / violet */
+[data-theme="slate"] {
+  --brand-bg:           #09090F;
+  --brand-bg-mid:       #1A1A2E;
+  --brand-bg-section:   #131325;
+  --brand-accent:       #8B5CF6;
+  --brand-accent-light: #A78BFA;
+  --brand-accent-glow:  rgba(139,92,246,0.45);
+  --brand-blob-1:       rgba(139,92,246,0.22);
+  --brand-blob-2:       rgba(109,40,217,0.18);
+  --brand-particle:     rgba(167,139,250,0.38);
+  --brand-grad-from:    #A78BFA;
+  --brand-grad-to:      #8B5CF6;
+  --brand-grid:         rgba(139,92,246,0.07);
+  --brand-rule:         #8B5CF6;
+  --shadow-cta:         0 8px 32px -4px rgba(139,92,246,0.45);
+  --font-display:       'Plus Jakarta Sans', sans-serif;
+}
+
+/* DUBAI — black / gold (luxury real estate) */
+[data-theme="dubai"] {
+  --brand-bg:           #050505;
+  --brand-bg-mid:       #0A0A0A;
+  --brand-bg-section:   #111111;
+  --brand-accent:       #C9A96E;
+  --brand-accent-light: #E8D4A8;
+  --brand-accent-glow:  rgba(201,169,110,0.35);
+  --brand-blob-1:       rgba(201,169,110,0.08);
+  --brand-blob-2:       rgba(168,136,90,0.06);
+  --brand-particle:     rgba(201,169,110,0.30);
+  --brand-grad-from:    #E8D4A8;
+  --brand-grad-to:      #C9A96E;
+  --brand-grid:         rgba(201,169,110,0.04);
+  --brand-rule:         #C9A96E;
+  --shadow-cta:         0 8px 32px -4px rgba(201,169,110,0.30);
+  --font-display:       'Cormorant Garamond', serif;
+  --font-body:          'Jost', sans-serif;
+}
+
+/* NOIR — pure black / white (minimalist editorial) */
+[data-theme="noir"] {
+  --brand-bg:           #000000;
+  --brand-bg-mid:       #0A0A0A;
+  --brand-bg-section:   #050505;
+  --brand-accent:       #FFFFFF;
+  --brand-accent-light: #F5F5F5;
+  --brand-accent-glow:  rgba(255,255,255,0.25);
+  --brand-blob-1:       rgba(255,255,255,0.04);
+  --brand-blob-2:       rgba(255,255,255,0.03);
+  --brand-particle:     rgba(255,255,255,0.25);
+  --brand-grad-from:    #FFFFFF;
+  --brand-grad-to:      #D4D4D4;
+  --brand-grid:         rgba(255,255,255,0.03);
+  --brand-rule:         #FFFFFF;
+  --font-display:       'Syne', sans-serif;
+}
+
+/* CHAMPAGNE — warm ivory / champagne gold (luxury medspa) */
+[data-theme="champagne"] {
+  --brand-bg:           #F5EFE5;
+  --brand-bg-mid:       #EDE5D8;
+  --brand-bg-section:   #EDE5D8;
+  --brand-accent:       #B8955A;
+  --brand-accent-light: #D4B483;
+  --brand-accent-glow:  rgba(184,149,90,0.25);
+  --brand-blob-1:       rgba(184,149,90,0.20);
+  --brand-blob-2:       rgba(184,100,60,0.14);
+  --brand-particle:     rgba(184,149,90,0.22);
+  --brand-grad-from:    #D4B483;
+  --brand-grad-to:      #B8955A;
+  --brand-grid:         rgba(184,149,90,0.07);
+  --brand-rule:         #B8955A;
+  --shadow-cta:         0 8px 32px -4px rgba(184,120,50,0.32);
+  --shadow-card:        0 4px 24px -4px rgba(30,25,21,0.07);
+  --shadow-nav:         0 2px 16px rgba(30,25,21,0.06);
+  --font-display:       'Cormorant Garamond', serif;
+  --font-body:          'Lato', sans-serif;
+  --brand-fg:           #1E1915;
+  --brand-fg-muted:     rgba(30,25,21,0.72);
+  --brand-fg-sub:       rgba(30,25,21,0.52);
+  --brand-fg-ghost:     rgba(30,25,21,0.05);
+  --brand-card-bg:      #FFFFFF;
+  --brand-card-border:  rgba(30,25,21,0.08);
+  --brand-input-bg:     #FFFFFF;
+  --brand-input-border: rgba(30,25,21,0.12);
+}
+
+/* CLEAN — white / bright (default for unbranded demos) */
+[data-theme="clean"] {
+  --brand-bg:           #FFFFFF;
+  --brand-bg-mid:       #F1F5F9;
+  --brand-bg-section:   #F8FAFC;
+  --brand-accent:       #6366F1;
+  --brand-accent-light: #818CF8;
+  --brand-accent-glow:  rgba(99,102,241,0.20);
+  --brand-blob-1:       rgba(99,102,241,0.07);
+  --brand-blob-2:       rgba(129,140,248,0.05);
+  --brand-particle:     rgba(99,102,241,0.18);
+  --brand-grad-from:    #818CF8;
+  --brand-grad-to:      #6366F1;
+  --brand-grid:         rgba(99,102,241,0.04);
+  --brand-rule:         #6366F1;
+  --shadow-cta:         0 8px 32px -4px rgba(99,102,241,0.30);
+  --shadow-card:        0 4px 24px -4px rgba(15,23,42,0.08);
+  --shadow-nav:         0 2px 16px rgba(15,23,42,0.06);
+  --font-display:       'Inter', sans-serif;
+  /* Foreground tokens — light-mode */
+  --brand-fg:           #0F172A;
+  --brand-fg-muted:     rgba(15,23,42,0.60);
+  --brand-fg-sub:       rgba(15,23,42,0.38);
+  --brand-fg-ghost:     rgba(15,23,42,0.05);
+  /* Card tokens — light-mode */
+  --brand-card-bg:      #FFFFFF;
+  --brand-card-border:  rgba(15,23,42,0.08);
+  --brand-input-bg:     #FFFFFF;
+  --brand-input-border: rgba(15,23,42,0.14);
+}

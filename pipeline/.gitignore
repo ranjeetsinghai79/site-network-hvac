@@ -1,0 +1,10 @@
+.env
+.env.local
+service-account.json
+*.json.key
+node_modules/
+dist/
+.next/
+out/
+logs/
+*.log

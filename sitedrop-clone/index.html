@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WebCrew — AI Web Agency Platform</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: #0d1117; background: #fff; -webkit-font-smoothing: antialiased; }
+
+    /* ── Marquee ── */
+    .marquee-wrap { overflow: hidden; }
+    .marquee-track { display: flex; gap: 0; animation: marquee 38s linear infinite; width: max-content; }
+    .marquee-wrap:hover .marquee-track { animation-play-state: paused; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ── Buttons ── */
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: linear-gradient(135deg, #5046e4, #7c3aed);
+      color: #fff; border-radius: 100px; padding: 12px 24px;
+      font-weight: 700; font-size: 14px; text-decoration: none;
+      transition: opacity 0.2s, transform 0.15s; border: none; cursor: pointer;
+      box-shadow: 0 4px 18px rgba(80,70,228,0.32);
+    }
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-primary-lg { padding: 14px 32px; font-size: 15px; }
+
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: transparent; color: #374151;
+      border: 1.5px solid #e5e7eb; border-radius: 100px;
+      padding: 12px 24px; font-weight: 600; font-size: 14px;
+      text-decoration: none; transition: border-color 0.2s, background 0.2s; cursor: pointer;
+    }
+    .btn-ghost:hover { border-color: #9ca3af; background: #f9fafb; }
+
+    .btn-outline-white {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: transparent; color: #fff;
+      border: 1.5px solid rgba(255,255,255,0.35); border-radius: 100px;
+      padding: 14px 28px; font-weight: 600; font-size: 15px;
+      text-decoration: none; transition: background 0.2s; cursor: pointer;
+    }
+    .btn-outline-white:hover { background: rgba(255,255,255,0.12); }
+
+    /* ── Feature tabs ── */
+    .ftab {
+      display: inline-flex; align-items: center; gap: 7px; padding: 8px 18px;
+      border-radius: 100px; border: 1.5px solid #e5e7eb;
+      font-size: 13px; font-weight: 600; color: #6b7280;
+      cursor: pointer; transition: all 0.15s; white-space: nowrap;
+      background: #fff;
+    }
+    .ftab:hover { border-color: #a5b4fc; color: #5046e4; }
+    .ftab.active { background: linear-gradient(135deg,#5046e4,#7c3aed); border-color: transparent; color: #fff; }
+
+    /* ── Step number ── */
+    .step-n { font-size: 11px; font-weight: 800; color: #7c3aed; letter-spacing: 0.04em; margin-bottom: 8px; }
+
+    /* ── Lead row ── */
+    .lead-row { display: flex; align-items: center; gap: 12px; padding: 11px 14px; background: #fff; border-radius: 12px; border: 1px solid #f1f5f9; }
+
+    /* ── Scroll reveal ── */
+    .reveal { transition: opacity 0.55s ease, transform 0.55s ease; }
+    .reveal.hidden { opacity: 0; transform: translateY(22px); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── FAQ ── */
+    .faq-ans { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+    .faq-ans.open { max-height: 180px; }
+
+    /* ── Pulse ── */
+    @keyframes live-pulse { 0%,100%{opacity:1}50%{opacity:0.5} }
+    .live { animation: live-pulse 2s infinite; }
+
+    /* ── Blink cursor ── */
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+    /* ── Gradient text ── */
+    .grad-text {
+      background: linear-gradient(135deg,#5046e4,#9333ea);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    /* ── W logo mark ── */
+    .w-mark {
+      width: 32px; height: 32px;
+      background: linear-gradient(135deg,#5046e4,#7c3aed);
+      border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 16px; color: #fff;
+      letter-spacing: -1px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════ NAV ══════════ -->
+<nav style="position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.95);backdrop-filter:blur(16px);border-bottom:1px solid #f1f5f9;">
+  <div style="max-width:1200px;margin:0 auto;padding:0 32px;height:62px;display:flex;align-items:center;justify-content:space-between;">
+    <div style="display:flex;align-items:center;gap:42px;">
+      <a href="#" style="display:flex;align-items:center;gap:9px;text-decoration:none;">
+        <div class="w-mark">W</div>
+        <span style="font-weight:900;font-size:15px;color:#0d1117;letter-spacing:-0.02em;">WebCrew</span>
+      </a>
+      <div style="display:flex;gap:28px;">
+        <a href="#how" style="font-size:14px;color:#6b7280;font-weight:500;text-decoration:none;" onmouseover="this.style.color='#0d1117'" onmouseout="this.style.color='#6b7280'">How it works</a>
+        <a href="#features" style="font-size:14px;color:#6b7280;font-weight:500;text-decoration:none;" onmouseover="this.style.color='#0d1117'" onmouseout="this.style.color='#6b7280'">Features</a>
+        <a href="#leads" style="font-size:14px;color:#6b7280;font-weight:500;text-decoration:none;" onmouseover="this.style.color='#0d1117'" onmouseout="this.style.color='#6b7280'">Find clients</a>
+        <a href="#pricing" style="font-size:14px;color:#6b7280;font-weight:500;text-decoration:none;" onmouseover="this.style.color='#0d1117'" onmouseout="this.style.color='#6b7280'">Pricing</a>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <a href="#" style="font-size:14px;color:#6b7280;font-weight:500;padding:8px 16px;text-decoration:none;" onmouseover="this.style.color='#0d1117'" onmouseout="this.style.color='#6b7280'">Log in</a>
+      <a href="#pricing" class="btn-primary" style="padding:9px 20px;font-size:14px;box-shadow:none;">Start for free</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ══════════ HERO ══════════ -->
+<section style="max-width:1200px;margin:0 auto;padding:80px 32px 64px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;">
+  <div>
+    <!-- Badge -->
+    <div style="display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,#ede9fe,#f5f3ff);color:#7c3aed;border-radius:100px;padding:5px 14px;font-size:12px;font-weight:700;margin-bottom:26px;border:1px solid #ddd6fe;">
+      <svg width="10" height="10" fill="currentColor" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      Run a web agency with AI
+    </div>
+    <h1 style="font-size:clamp(38px,4vw,58px);font-weight:900;line-height:1.05;letter-spacing:-0.035em;margin-bottom:20px;">
+      Launch a web<br/>
+      agency <span class="grad-text">in a day.</span>
+    </h1>
+    <p style="font-size:16px;color:#4b5563;line-height:1.75;margin-bottom:34px;max-width:410px;">
+      WebCrew finds local businesses that need a new website, builds it with AI in minutes, and helps you close the deal. <strong style="color:#0d1117;">No code. No agency overhead.</strong>
+    </p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+      <a href="#pricing" class="btn-primary btn-primary-lg">
+        Get started free
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#how" style="display:inline-flex;align-items:center;gap:6px;font-size:15px;color:#374151;font-weight:600;text-decoration:none;" onmouseover="this.style.color='#5046e4'" onmouseout="this.style.color='#374151'">
+        See how it works
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <!-- Trust row -->
+    <div style="display:flex;align-items:center;gap:14px;margin-top:32px;">
+      <div style="display:flex;align-items:center;">
+        <div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#5046e4,#7c3aed);border:2.5px solid #fff;margin-right:-9px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:#fff;z-index:4;position:relative;">RT</div>
+        <div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#10b981,#059669);border:2.5px solid #fff;margin-right:-9px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:#fff;z-index:3;position:relative;">JM</div>
+        <div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#f59e0b,#d97706);border:2.5px solid #fff;margin-right:-9px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:#fff;z-index:2;position:relative;">DL</div>
+        <div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#ec4899,#be185d);border:2.5px solid #fff;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:#fff;z-index:1;position:relative;">KP</div>
+      </div>
+      <span style="font-size:13px;color:#6b7280;line-height:1.4;"><strong style="color:#0d1117;">1,400+ freelancers</strong> already running their agency on WebCrew</span>
+    </div>
+  </div>
+
+  <!-- Browser mockup -->
+  <div style="position:relative;">
+    <div style="border-radius:18px;box-shadow:0 24px 72px rgba(80,70,228,0.14),0 0 0 1px rgba(0,0,0,0.06);overflow:hidden;background:#fff;">
+      <!-- Chrome bar -->
+      <div style="background:#f8fafc;border-bottom:1px solid #e5e7eb;padding:9px 14px;display:flex;align-items:center;gap:7px;">
+        <span style="width:11px;height:11px;border-radius:50%;background:#ff5f57;display:inline-block;"></span>
+        <span style="width:11px;height:11px;border-radius:50%;background:#ffbd2e;display:inline-block;"></span>
+        <span style="width:11px;height:11px;border-radius:50%;background:#28c940;display:inline-block;"></span>
+        <div style="flex:1;background:#fff;border:1px solid #e5e7eb;border-radius:6px;height:22px;display:flex;align-items:center;padding:0 10px;font-size:11px;color:#9ca3af;margin:0 8px;">
+          <svg width="9" height="9" fill="none" stroke="#9ca3af" stroke-width="2" viewBox="0 0 24 24" style="margin-right:5px;flex-shrink:0;"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          peakroofing.com
+        </div>
+      </div>
+      <!-- Generated site preview -->
+      <div style="background:linear-gradient(160deg,#0a0f1e,#1e1b4b);padding:22px 20px 0;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;">
+          <span style="font-size:11px;font-weight:900;color:#fff;letter-spacing:0.08em;">PEAK ROOFING CO.</span>
+          <div style="display:flex;gap:16px;">
+            <span style="font-size:10px;color:rgba(255,255,255,0.5);">Services</span>
+            <span style="font-size:10px;color:rgba(255,255,255,0.5);">About</span>
+            <span style="font-size:10px;color:rgba(255,255,255,0.5);">Contact</span>
+          </div>
+        </div>
+        <div style="font-size:9px;color:rgba(255,255,255,0.35);letter-spacing:0.12em;margin-bottom:7px;">LICENSED · INSURED · HOUSTON TX</div>
+        <h2 style="font-size:19px;font-weight:900;color:#fff;line-height:1.2;margin-bottom:6px;">Your roof.<br/><span style="color:#f59e0b;">Our guarantee.</span></h2>
+        <div style="display:flex;gap:8px;margin-top:14px;margin-bottom:18px;">
+          <button style="background:#f59e0b;color:#0a0f1e;border:none;border-radius:100px;padding:7px 14px;font-size:10px;font-weight:800;cursor:pointer;">Free estimate</button>
+          <button style="background:transparent;color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.25);border-radius:100px;padding:7px 14px;font-size:10px;font-weight:600;cursor:pointer;">Our work</button>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:7px;">
+          <div style="background:linear-gradient(160deg,#374151,#1f2937);border-radius:10px 10px 0 0;height:80px;"></div>
+          <div style="background:linear-gradient(160deg,#292524,#1c1917);border-radius:10px 10px 0 0;height:80px;margin-top:14px;"></div>
+          <div style="background:linear-gradient(160deg,#1e3a5f,#1e3a5f);border-radius:10px 10px 0 0;height:80px;"></div>
+        </div>
+      </div>
+    </div>
+    <!-- Top card -->
+    <div style="position:absolute;top:40px;right:-24px;background:#fff;border-radius:14px;padding:11px 15px;box-shadow:0 8px 32px rgba(0,0,0,0.13);min-width:138px;">
+      <div style="font-size:9px;color:#9ca3af;font-weight:700;letter-spacing:0.06em;margin-bottom:3px;">Built in 3m 47s</div>
+      <div style="display:flex;align-items:center;gap:5px;">
+        <div style="width:7px;height:7px;background:#10b981;border-radius:50%;"></div>
+        <span style="font-size:11px;color:#374151;font-weight:600;">Live on webcrew.app</span>
+      </div>
+    </div>
+    <!-- Bottom card -->
+    <div style="position:absolute;bottom:22px;left:-20px;background:#fff;border-radius:14px;padding:12px 16px;box-shadow:0 8px 32px rgba(0,0,0,0.13);">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+        <span style="font-size:18px;font-weight:900;color:#0d1117;">$1,800</span>
+        <span class="live" style="background:#22c55e;color:#fff;font-size:9px;font-weight:800;letter-spacing:0.06em;padding:2px 7px;border-radius:100px;">PAID</span>
+      </div>
+      <div style="font-size:11px;color:#9ca3af;">Invoice closed · 2h ago</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ MARQUEE ══════════ -->
+<div style="border-top:1px solid #f1f5f9;border-bottom:1px solid #f1f5f9;padding:13px 0;background:#fafafa;">
+  <div class="marquee-wrap">
+    <div class="marquee-track" id="marquee"></div>
+  </div>
+</div>
+
+<!-- ══════════ HOW IT WORKS ══════════ -->
+<section id="how" style="background:#f8fafc;padding:100px 32px;">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:60px;" class="reveal">
+      <div style="display:inline-block;background:linear-gradient(135deg,#ede9fe,#f5f3ff);color:#7c3aed;font-size:11px;font-weight:800;letter-spacing:0.08em;padding:4px 14px;border-radius:100px;margin-bottom:18px;">HOW IT WORKS</div>
+      <h2 style="font-size:clamp(30px,3.5vw,46px);font-weight:900;letter-spacing:-0.03em;color:#0d1117;line-height:1.1;">From zero to booked<br/><span class="grad-text">in one afternoon.</span></h2>
+      <p style="font-size:16px;color:#6b7280;margin-top:14px;max-width:460px;margin-left:auto;margin-right:auto;line-height:1.65;">WebCrew handles the hard parts — finding prospects, building the site, and sending the pitch. You show up for the close.</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:22px;">
+
+      <!-- Step 01 -->
+      <div class="reveal" style="background:#fff;border-radius:22px;padding:30px;border:1px solid #e5e7eb;overflow:hidden;">
+        <div style="background:#f8fafc;border-radius:14px;padding:18px;margin-bottom:26px;border:1px solid #f1f5f9;min-height:124px;display:flex;flex-direction:column;justify-content:center;">
+          <div style="font-size:10px;color:#9ca3af;font-weight:700;letter-spacing:0.08em;margin-bottom:10px;">SCAN GOOGLE MAPS</div>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+            <div style="flex:1;background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:7px 12px;font-size:12px;color:#374151;">Roofers in Houston, TX</div>
+            <div style="width:28px;height:28px;background:linear-gradient(135deg,#5046e4,#7c3aed);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg width="11" height="11" fill="none" stroke="#fff" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            </div>
+          </div>
+          <div style="display:flex;gap:6px;">
+            <span style="background:#fef9c3;color:#ca8a04;font-size:10px;font-weight:700;padding:3px 9px;border-radius:8px;">18 no website</span>
+            <span style="background:#dcfce7;color:#16a34a;font-size:10px;font-weight:700;padding:3px 9px;border-radius:8px;">7 bad sites</span>
+          </div>
+        </div>
+        <div class="step-n">01</div>
+        <h3 style="font-size:17px;font-weight:800;color:#0d1117;margin-bottom:8px;">Find hot prospects</h3>
+        <p style="font-size:13px;color:#6b7280;line-height:1.65;">Type a niche and city. WebCrew pulls every local business and flags the ones with no website or a weak one.</p>
+      </div>
+
+      <!-- Step 02 -->
+      <div class="reveal" style="background:#fff;border-radius:22px;padding:30px;border:1px solid #e5e7eb;overflow:hidden;transition-delay:0.1s;">
+        <div style="background:#f8fafc;border-radius:14px;padding:18px;margin-bottom:26px;border:1px solid #f1f5f9;min-height:124px;display:flex;flex-direction:column;gap:8px;justify-content:center;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div style="width:8px;height:8px;background:#f59e0b;border-radius:50%;animation:live-pulse 1.5s infinite;"></div>
+            <span style="font-size:10px;color:#9ca3af;font-weight:700;letter-spacing:0.06em;">AI GENERATING SITE</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:5px;">
+            <div style="height:7px;background:linear-gradient(90deg,#5046e4,#7c3aed);border-radius:100px;width:100%;"></div>
+            <div style="height:5px;background:#e5e7eb;border-radius:100px;width:78%;"></div>
+            <div style="height:5px;background:#e5e7eb;border-radius:100px;width:55%;"></div>
+          </div>
+          <div style="font-size:11px;color:#7c3aed;font-weight:600;">Brand extracted · Generating layout…</div>
+        </div>
+        <div class="step-n">02</div>
+        <h3 style="font-size:17px;font-weight:800;color:#0d1117;margin-bottom:8px;">AI builds the site</h3>
+        <p style="font-size:13px;color:#6b7280;line-height:1.65;">WebCrew scrapes their brand, generates a full custom site with copy, images, and colors — live in under 5 minutes.</p>
+      </div>
+
+      <!-- Step 03 -->
+      <div class="reveal" style="background:#fff;border-radius:22px;padding:30px;border:1px solid #e5e7eb;overflow:hidden;transition-delay:0.2s;">
+        <div style="background:#f8fafc;border-radius:14px;padding:18px;margin-bottom:26px;border:1px solid #f1f5f9;min-height:124px;">
+          <div style="font-size:10px;color:#9ca3af;font-weight:700;letter-spacing:0.06em;margin-bottom:10px;">OUTREACH SENT</div>
+          <div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:11px 13px;font-size:11px;color:#374151;line-height:1.5;margin-bottom:10px;">
+            "Hi Mike — I built your business a free website preview. Check it out at <span style="color:#5046e4;font-weight:600;">peakroofing.webcrew.app</span>"
+          </div>
+          <div style="display:flex;gap:7px;">
+            <span style="background:#dcfce7;color:#16a34a;font-size:10px;font-weight:700;padding:3px 9px;border-radius:8px;">Email sent</span>
+            <span style="background:#ede9fe;color:#7c3aed;font-size:10px;font-weight:700;padding:3px 9px;border-radius:8px;">SMS sent</span>
+          </div>
+        </div>
+        <div class="step-n">03</div>
+        <h3 style="font-size:17px;font-weight:800;color:#0d1117;margin-bottom:8px;">Pitch writes itself</h3>
+        <p style="font-size:13px;color:#6b7280;line-height:1.65;">A personalized email + SMS goes out automatically with their preview link. They click, they love it, you close.</p>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:52px;" class="reveal">
+      <a href="#pricing" class="btn-primary btn-primary-lg">Start building free</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FEATURES ══════════ -->
+<section id="features" style="padding:100px 32px;background:#fff;">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:50px;" class="reveal">
+      <div style="display:inline-flex;align-items:center;gap:6px;background:#f1f5f9;color:#6b7280;font-size:11px;font-weight:700;letter-spacing:0.08em;padding:4px 14px;border-radius:100px;margin-bottom:18px;">
+        ✦ PLATFORM FEATURES
+      </div>
+      <h2 style="font-size:clamp(30px,3.5vw,46px);font-weight:900;letter-spacing:-0.03em;color:#0d1117;line-height:1.1;">Everything to run your<br/><span class="grad-text">one-person agency.</span></h2>
+    </div>
+
+    <!-- Tab pills -->
+    <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:42px;" id="feat-tabs">
+      <button class="ftab active" onclick="switchFeat(0)" data-idx="0">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        Lead Scanner
+      </button>
+      <button class="ftab" onclick="switchFeat(1)" data-idx="1">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        AI Site Builder
+      </button>
+      <button class="ftab" onclick="switchFeat(2)" data-idx="2">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        Instant Deploy
+      </button>
+      <button class="ftab" onclick="switchFeat(3)" data-idx="3">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+        Client Previews
+      </button>
+      <button class="ftab" onclick="switchFeat(4)" data-idx="4">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        Invoicing
+      </button>
+      <button class="ftab" onclick="switchFeat(5)" data-idx="5">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        Retainer Tracker
+      </button>
+    </div>
+
+    <!-- Feature panels -->
+    <div style="background:#f8fafc;border-radius:26px;padding:50px;border:1px solid #e5e7eb;min-height:320px;">
+
+      <!-- Panel 0: Lead Scanner -->
+      <div id="fp-0" style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;">
+        <div>
+          <div style="width:50px;height:50px;background:linear-gradient(135deg,#5046e4,#7c3aed);border-radius:15px;display:flex;align-items:center;justify-content:center;margin-bottom:22px;">
+            <svg width="22" height="22" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          </div>
+          <h3 style="font-size:24px;font-weight:900;color:#0d1117;margin-bottom:10px;">Lead Scanner</h3>
+          <p style="font-size:15px;color:#6b7280;line-height:1.7;margin-bottom:22px;">Pull 200M+ local businesses from Google. Filter by niche, city, and whether they have a website. Your hit list, built in seconds.</p>
+          <div style="font-size:26px;font-weight:900;color:#5046e4;">200M+ <span style="font-size:14px;color:#6b7280;font-weight:500;">businesses indexed</span></div>
+        </div>
+        <div style="background:#fff;border-radius:16px;padding:22px;border:1px solid #e5e7eb;box-shadow:0 2px 14px rgba(0,0,0,0.05);">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+            <span style="font-size:12px;font-weight:700;color:#0d1117;">Plumbers · Denver, CO</span>
+            <span style="background:#ede9fe;color:#7c3aed;font-size:10px;font-weight:700;padding:3px 9px;border-radius:8px;">41 found</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;align-items:center;gap:10px;padding:9px 12px;background:#fafafa;border-radius:10px;border:1px solid #f1f5f9;">
+              <div style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#5046e4,#7c3aed);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff;flex-shrink:0;">RP</div>
+              <div style="flex:1;font-size:12px;font-weight:600;color:#0d1117;">Reliable Plumbing Co.</div>
+              <span style="background:#fef9c3;color:#ca8a04;font-size:10px;font-weight:700;padding:2px 8px;border-radius:6px;">No site</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:9px 12px;background:#fafafa;border-radius:10px;border:1px solid #f1f5f9;">
+              <div style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#10b981,#059669);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff;flex-shrink:0;">FP</div>
+              <div style="flex:1;font-size:12px;font-weight:600;color:#0d1117;">Five Star Plumbers</div>
+              <span style="background:#fef9c3;color:#ca8a04;font-size:10px;font-weight:700;padding:2px 8px;border-radius:6px;">No site</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:9px 12px;background:#fafafa;border-radius:10px;border:1px solid #f1f5f9;opacity:0.5;">
+              <div style="width:28px;height:28px;border-radius:8px;background:#e5e7eb;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#9ca3af;flex-shrink:0;">QF</div>
+              <div style="flex:1;font-size:12px;font-weight:600;color:#6b7280;">QuickFix Pipe Pros</div>
+              <span style="background:#f1f5f9;color:#9ca3af;font-size:10px;font-weight:600;padding:2px 8px;border-radius:6px;">Has site</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel 1: AI Site Builder -->
+      <div id="fp-1" style="display:none;grid-template-columns:1fr 1fr;gap:64px;align-items:center;">
+        <div>
+          <div style="width:50px;height:50px;background:linear-gradient(135deg,#f59e0b,#d97706);border-radius:15px;display:flex;align-items:center;justify-content:center;margin-bottom:22px;">
+            <svg width="22" height="22" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </div>
+          <h3 style="font-size:24px;font-weight:900;color:#0d1117;margin-bottom:10px;">AI Site Builder</h3>
+          <p style="font-size:15px;color:#6b7280;line-height:1.7;margin-bottom:22px;">Scrapes the business's brand, picks a template, writes the copy, generates images, and deploys — all in one click.</p>
+          <div style="font-size:24px;font-weight:900;color:#d97706;">Under 5 min <span style="font-size:14px;color:#6b7280;font-weight:500;">from lead to live site</span></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="background:linear-gradient(160deg,#0a0f1e,#1e1b4b);border-radius:14px;padding:18px;color:#fff;">
+            <div style="font-size:9px;opacity:0.4;margin-bottom:5px;letter-spacing:0.08em;">GENERATED FOR · PEAK ROOFING CO.</div>
+            <div style="font-size:15px;font-weight:800;">Dark &amp; Bold — Contractor</div>
+            <div style="font-size:11px;opacity:0.5;margin-top:3px;">Navy + Amber palette · 6 sections</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+            <div style="background:linear-gradient(135deg,#f0fdf4,#bbf7d0);border-radius:14px;padding:16px;height:80px;display:flex;flex-direction:column;justify-content:flex-end;">
+              <div style="font-size:10px;color:#16a34a;opacity:0.7;margin-bottom:2px;">HVAC niche</div>
+              <div style="font-size:12px;font-weight:700;color:#15803d;">Clean &amp; Trustworthy</div>
+            </div>
+            <div style="background:linear-gradient(135deg,#fff7ed,#fed7aa);border-radius:14px;padding:16px;height:80px;display:flex;flex-direction:column;justify-content:flex-end;">
+              <div style="font-size:10px;color:#ea580c;opacity:0.7;margin-bottom:2px;">Law firm niche</div>
+              <div style="font-size:12px;font-weight:700;color:#c2410c;">Premium &amp; Formal</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel 2: Instant Deploy -->
+      <div id="fp-2" style="display:none;grid-template-columns:1fr 1fr;gap:64px;align-items:center;">
+        <div>
+          <div style="width:50px;height:50px;background:linear-gradient(135deg,#0ea5e9,#0284c7);border-radius:15px;display:flex;align-items:center;justify-content:center;margin-bottom:22px;">
+            <svg width="22" height="22" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          </div>
+          <h3 style="font-size:24px;font-weight:900;color:#0d1117;margin-bottom:10px;">Instant Deploy</h3>
+          <p style="font-size:15px;color:#6b7280;line-height:1.7;margin-bottom:22px;">Every site goes live on a branded preview URL. Connect a custom domain in one click when the client says yes.</p>
+          <div style="font-size:28px;font-weight:900;color:#0284c7;">99.99% <span style="font-size:15px;color:#6b7280;font-weight:500;">uptime, global CDN</span></div>
+        </div>
+        <div style="background:#fff;border-radius:16px;padding:24px;border:1px solid #e5e7eb;box-shadow:0 2px 14px rgba(0,0,0,0.05);">
+          <div style="display:flex;flex-direction:column;gap:0;">
+            <div style="display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid #f1f5f9;">
+              <div style="width:28px;height:28px;background:linear-gradient(135deg,#5046e4,#7c3aed);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;flex-shrink:0;">1</div>
+              <span style="font-size:13px;font-weight:600;color:#0d1117;flex:1;">Site built by AI</span>
+              <span style="font-size:11px;color:#9ca3af;">~4 min</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid #f1f5f9;">
+              <div style="width:28px;height:28px;background:linear-gradient(135deg,#5046e4,#7c3aed);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;flex-shrink:0;">2</div>
+              <span style="font-size:13px;font-weight:600;color:#0d1117;flex:1;">Preview URL live</span>
+              <div style="width:44px;height:3px;background:linear-gradient(90deg,#5046e4,#7c3aed);border-radius:100px;"></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;padding:14px 0;">
+              <div style="width:28px;height:28px;background:#22c55e;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <svg width="13" height="13" fill="none" stroke="#fff" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+              </div>
+              <span style="font-size:13px;font-weight:600;color:#0d1117;flex:1;">Custom domain connected</span>
+              <span style="background:#dcfce7;color:#16a34a;font-size:11px;font-weight:700;padding:3px 10px;border-radius:8px;">Live</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel 3: Client Previews -->
+      <div id="fp-3" style="display:none;grid-template-columns:1fr 1fr;gap:64px;align-items:center;">
+        <div>
+          <div style="width:50px;height:50px;background:linear-gradient(135deg,#ec4899,#be185d);border-radius:15px;display:flex;align-items:center;justify-content:center;margin-bottom:22px;">
+            <svg width="22" height="22" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+          </div>
+          <h3 style="font-size:24px;font-weight:900;color:#0d1117;margin-bottom:10px;">Client Previews</h3>
+          <p style="font-size:15px;color:#6b7280;line-height:1.7;margin-bottom:22px;">Share a private link before going live. Client approves with one click. No back-and-forth, no missed revisions.</p>
+          <div style="font-size:22px;font-weight:900;color:#be185d;">1-click <span style="font-size:14px;color:#6b7280;font-weight:500;">client sign-off</span></div>
+        </div>
+        <div style="background:#fff;border-radius:16px;padding:22px;border:1px solid #e5e7eb;box-shadow:0 2px 14px rgba(0,0,0,0.05);">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;">
+            <div style="width:8px;height:8px;background:#f59e0b;border-radius:50%;"></div>
+            <span style="font-size:12px;color:#9ca3af;">Awaiting client review</span>
+          </div>
+          <div style="background:#f8fafc;border-radius:8px;padding:9px 14px;font-size:12px;color:#5046e4;font-weight:600;margin-bottom:14px;border:1px solid #e5e7eb;">preview.webcrew.app/peak-roofing-v2</div>
+          <div style="font-size:12px;color:#9ca3af;margin-bottom:12px;">Mike viewed this 3 times today</div>
+          <div style="display:flex;gap:8px;">
+            <button style="flex:1;background:linear-gradient(135deg,#5046e4,#7c3aed);color:#fff;border:none;border-radius:10px;padding:10px;font-size:13px;font-weight:700;cursor:pointer;">✓ Approve &amp; Go Live</button>
+            <button style="background:#f8fafc;border:1px solid #e5e7eb;color:#6b7280;border-radius:10px;padding:10px 14px;font-size:13px;cursor:pointer;">Edit</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel 4: Invoicing -->
+      <div id="fp-4" style="display:none;grid-template-columns:1fr 1fr;gap:64px;align-items:center;">
+        <div>
+          <div style="width:50px;height:50px;background:linear-gradient(135deg,#22c55e,#16a34a);border-radius:15px;display:flex;align-items:center;justify-content:center;margin-bottom:22px;">
+            <svg width="22" height="22" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          </div>
+          <h3 style="font-size:24px;font-weight:900;color:#0d1117;margin-bottom:10px;">Built-in Invoicing</h3>
+          <p style="font-size:15px;color:#6b7280;line-height:1.7;margin-bottom:22px;">Create an invoice, send it as a PDF or link, and track payments — all inside WebCrew. You keep 100% of what you charge.</p>
+          <div style="font-size:26px;font-weight:900;color:#16a34a;">0% <span style="font-size:14px;color:#6b7280;font-weight:500;">platform fees on earnings</span></div>
+        </div>
+        <div style="background:#fff;border-radius:16px;padding:22px;border:1px solid #e5e7eb;box-shadow:0 2px 14px rgba(0,0,0,0.05);">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+            <div style="display:flex;align-items:center;gap:6px;">
+              <span style="width:7px;height:7px;background:#22c55e;border-radius:50%;"></span>
+              <span style="font-size:12px;color:#22c55e;font-weight:700;">Paid</span>
+            </div>
+            <span style="font-size:12px;color:#9ca3af;font-weight:600;">INV-0031</span>
+          </div>
+          <div style="font-size:28px;font-weight:900;color:#0d1117;margin-bottom:14px;">$1,200</div>
+          <div style="border-top:1px solid #f1f5f9;padding-top:12px;display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;justify-content:space-between;font-size:12px;">
+              <span style="color:#6b7280;">Website design + build</span>
+              <span style="font-weight:700;color:#0d1117;">$900</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:12px;">
+              <span style="color:#6b7280;">1st month hosting</span>
+              <span style="font-weight:700;color:#0d1117;">$300</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel 5: Retainer Tracker -->
+      <div id="fp-5" style="display:none;grid-template-columns:1fr 1fr;gap:64px;align-items:center;">
+        <div>
+          <div style="width:50px;height:50px;background:linear-gradient(135deg,#f59e0b,#d97706);border-radius:15px;display:flex;align-items:center;justify-content:center;margin-bottom:22px;">
+            <svg width="22" height="22" fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <h3 style="font-size:24px;font-weight:900;color:#0d1117;margin-bottom:10px;">Retainer Tracker</h3>
+          <p style="font-size:15px;color:#6b7280;line-height:1.7;margin-bottom:22px;">Bill clients monthly for hosting, updates, and SEO. WebCrew tracks who's active, who's late, and your total MRR.</p>
+          <div style="font-size:26px;font-weight:900;color:#d97706;">$200–$400 <span style="font-size:14px;color:#6b7280;font-weight:500;">per client/month</span></div>
+        </div>
+        <div style="background:#fff;border-radius:16px;padding:22px;border:1px solid #e5e7eb;box-shadow:0 2px 14px rgba(0,0,0,0.05);">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;">
+            <span style="font-size:11px;color:#9ca3af;font-weight:700;letter-spacing:0.06em;">MONTHLY RETAINERS</span>
+            <span style="font-size:12px;color:#22c55e;font-weight:700;">↑ 22%</span>
+          </div>
+          <div style="font-size:32px;font-weight:900;color:#0d1117;margin-bottom:14px;">$4,800</div>
+          <div style="display:flex;align-items:flex-end;gap:5px;height:56px;margin-bottom:12px;">
+            <div style="background:#ede9fe;border-radius:3px 3px 0 0;width:18px;height:25%;"></div>
+            <div style="background:#ddd6fe;border-radius:3px 3px 0 0;width:18px;height:40%;"></div>
+            <div style="background:#c4b5fd;border-radius:3px 3px 0 0;width:18px;height:52%;"></div>
+            <div style="background:#a78bfa;border-radius:3px 3px 0 0;width:18px;height:65%;"></div>
+            <div style="background:#8b5cf6;border-radius:3px 3px 0 0;width:18px;height:78%;"></div>
+            <div style="background:#7c3aed;border-radius:3px 3px 0 0;width:18px;height:88%;"></div>
+            <div style="background:#6d28d9;border-radius:3px 3px 0 0;width:18px;height:100%;"></div>
+          </div>
+          <div style="font-size:12px;color:#6b7280;padding-top:10px;border-top:1px solid #f1f5f9;"><strong style="color:#0d1117;">16 clients on retainer</strong> · avg $300/mo</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ LEAD FINDER ══════════ -->
+<section id="leads" style="background:#f8fafc;padding:100px 32px;">
+  <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;">
+    <div class="reveal">
+      <div style="display:inline-flex;align-items:center;gap:7px;background:#dcfce7;color:#16a34a;font-size:11px;font-weight:700;letter-spacing:0.08em;padding:4px 13px;border-radius:100px;margin-bottom:22px;">
+        <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        LEAD SCANNER
+      </div>
+      <h2 style="font-size:clamp(30px,3vw,42px);font-weight:900;letter-spacing:-0.03em;color:#0d1117;margin-bottom:16px;line-height:1.1;">Find 50 clients<br/><span class="grad-text">in 30 seconds.</span></h2>
+      <p style="font-size:15px;color:#6b7280;line-height:1.7;margin-bottom:30px;">Every WebCrew plan includes the lead scanner. Drop a city and a niche — it pulls every local business and ranks them by how badly they need a new site.</p>
+      <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:38px;">
+        <div style="display:flex;gap:10px;align-items:flex-start;">
+          <div style="width:20px;height:20px;background:linear-gradient(135deg,#5046e4,#7c3aed);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">
+            <svg width="10" height="10" fill="none" stroke="#fff" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+          </div>
+          <p style="font-size:14px;color:#374151;line-height:1.55;"><strong>No-website filter</strong> — skip every business that already has a decent site.</p>
+        </div>
+        <div style="display:flex;gap:10px;align-items:flex-start;">
+          <div style="width:20px;height:20px;background:linear-gradient(135deg,#5046e4,#7c3aed);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">
+            <svg width="10" height="10" fill="none" stroke="#fff" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+          </div>
+          <p style="font-size:14px;color:#374151;line-height:1.55;"><strong>Phone + email included</strong> — everything you need to reach out instantly.</p>
+        </div>
+        <div style="display:flex;gap:10px;align-items:flex-start;">
+          <div style="width:20px;height:20px;background:linear-gradient(135deg,#5046e4,#7c3aed);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">
+            <svg width="10" height="10" fill="none" stroke="#fff" stroke-width="3" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+          </div>
+          <p style="font-size:14px;color:#374151;line-height:1.55;"><strong>One-click build</strong> — turn any lead into a live site from the same screen.</p>
+        </div>
+      </div>
+      <a href="#pricing" class="btn-primary">Open Lead Scanner →</a>
+    </div>
+
+    <div class="reveal" style="transition-delay:0.15s;">
+      <div style="background:#fff;border-radius:22px;box-shadow:0 14px 52px rgba(80,70,228,0.1);border:1px solid #e5e7eb;overflow:hidden;">
+        <div style="padding:16px 20px;border-bottom:1px solid #f1f5f9;display:flex;gap:10px;align-items:flex-end;">
+          <div style="flex:1;">
+            <div style="font-size:10px;color:#9ca3af;font-weight:700;letter-spacing:0.06em;margin-bottom:4px;">BUSINESS TYPE</div>
+            <div style="background:#f8fafc;border:1px solid #e5e7eb;border-radius:8px;padding:8px 12px;font-size:13px;color:#0d1117;font-weight:500;">HVAC companies</div>
+          </div>
+          <div style="flex:1;">
+            <div style="font-size:10px;color:#9ca3af;font-weight:700;letter-spacing:0.06em;margin-bottom:4px;">CITY</div>
+            <div style="background:#f8fafc;border:1px solid #e5e7eb;border-radius:8px;padding:8px 12px;font-size:13px;color:#0d1117;font-weight:500;">Dallas, TX</div>
+          </div>
+          <button style="background:linear-gradient(135deg,#5046e4,#7c3aed);color:#fff;border:none;border-radius:8px;padding:9px 18px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;">Scan</button>
+        </div>
+        <div style="padding:12px 16px;display:flex;flex-direction:column;gap:8px;">
+          <div class="lead-row">
+            <div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#5046e4,#7c3aed);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;flex-shrink:0;">AC</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:700;color:#0d1117;">AirComfort Pro</div>
+              <div style="font-size:11px;color:#9ca3af;">4.8 ★ · (214) 555-0190</div>
+            </div>
+            <span style="background:#fef9c3;color:#ca8a04;font-size:10px;font-weight:700;padding:3px 8px;border-radius:8px;white-space:nowrap;">No website</span>
+          </div>
+          <div class="lead-row">
+            <div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#10b981,#059669);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;flex-shrink:0;">CC</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:700;color:#0d1117;">CoolCraft HVAC</div>
+              <div style="font-size:11px;color:#9ca3af;">4.6 ★ · (214) 555-0203</div>
+            </div>
+            <span style="background:#fef9c3;color:#ca8a04;font-size:10px;font-weight:700;padding:3px 8px;border-radius:8px;white-space:nowrap;">No website</span>
+          </div>
+          <div class="lead-row" style="opacity:0.55;">
+            <div style="width:36px;height:36px;border-radius:10px;background:#e5e7eb;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#9ca3af;flex-shrink:0;">DE</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:700;color:#6b7280;">Delta Air Services</div>
+              <div style="font-size:11px;color:#9ca3af;">4.5 ★ · (214) 555-0217</div>
+            </div>
+            <span style="background:#f1f5f9;color:#9ca3af;font-size:10px;font-weight:600;padding:3px 8px;border-radius:8px;white-space:nowrap;">Has site</span>
+          </div>
+          <div class="lead-row">
+            <div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#f59e0b,#d97706);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;flex-shrink:0;">TX</div>
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:700;color:#0d1117;">Texas Breeze HVAC</div>
+              <div style="font-size:11px;color:#9ca3af;">4.9 ★ · (214) 555-0231</div>
+            </div>
+            <span style="background:#fef9c3;color:#ca8a04;font-size:10px;font-weight:700;padding:3px 8px;border-radius:8px;white-space:nowrap;">No website</span>
+          </div>
+        </div>
+        <div style="padding:12px 16px;border-top:1px solid #f1f5f9;background:#fafafa;display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:12px;color:#6b7280;">44 results · <strong style="color:#5046e4;">29 no-website</strong></span>
+          <button style="background:#0d1117;color:#fff;border:none;border-radius:8px;padding:6px 14px;font-size:11px;font-weight:700;cursor:pointer;">Export CSV ↓</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ INVOICING / COLLECT ══════════ -->
+<section id="collect" style="padding:100px 32px;background:#fff;">
+  <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;">
+
+    <!-- Invoice card -->
+    <div class="reveal">
+      <div style="background:#fff;border-radius:22px;box-shadow:0 14px 52px rgba(0,0,0,0.09);border:1px solid #e5e7eb;padding:30px;max-width:380px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;">
+          <div style="display:flex;align-items:center;gap:7px;">
+            <span style="width:7px;height:7px;background:#22c55e;border-radius:50%;display:inline-block;"></span>
+            <span style="font-size:12px;color:#22c55e;font-weight:700;">Paid · 1h ago</span>
+          </div>
+          <span style="font-size:12px;font-weight:700;color:#9ca3af;">WC-0042</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr auto;gap:10px;margin-bottom:22px;">
+          <div>
+            <div style="font-size:10px;color:#9ca3af;font-weight:700;letter-spacing:0.06em;margin-bottom:4px;">BILLED TO</div>
+            <div style="font-size:14px;font-weight:800;color:#0d1117;">Peak Roofing Co.</div>
+            <div style="font-size:12px;color:#9ca3af;">mike@peakroofing.com</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:10px;color:#9ca3af;font-weight:700;letter-spacing:0.06em;margin-bottom:4px;">TOTAL</div>
+            <div style="font-size:30px;font-weight:900;color:#0d1117;">$1,200</div>
+          </div>
+        </div>
+        <div style="border-top:1px solid #f1f5f9;padding-top:16px;display:flex;flex-direction:column;gap:10px;margin-bottom:22px;">
+          <div style="display:flex;justify-content:space-between;">
+            <span style="font-size:13px;color:#6b7280;">Website design + build</span>
+            <span style="font-size:13px;font-weight:700;color:#0d1117;">$900</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;">
+            <span style="font-size:13px;color:#6b7280;">Monthly hosting retainer</span>
+            <span style="font-size:13px;font-weight:700;color:#0d1117;">$300</span>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button style="flex:1;background:linear-gradient(135deg,#5046e4,#7c3aed);color:#fff;border:none;border-radius:11px;padding:12px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;">
+            <svg width="13" height="13" fill="none" stroke="#fff" stroke-width="2.5" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            Send invoice
+          </button>
+          <button style="background:#f8fafc;border:1px solid #e5e7eb;color:#6b7280;border-radius:11px;padding:12px 16px;font-size:13px;cursor:pointer;">PDF</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal" style="transition-delay:0.15s;">
+      <div style="display:inline-flex;align-items:center;gap:7px;background:#fef3c7;color:#d97706;font-size:11px;font-weight:700;letter-spacing:0.08em;padding:4px 13px;border-radius:100px;margin-bottom:22px;">
+        💸 BILLING
+      </div>
+      <h2 style="font-size:clamp(30px,3vw,42px);font-weight:900;letter-spacing:-0.03em;color:#0d1117;margin-bottom:16px;line-height:1.1;">Build it once.<br/><span class="grad-text">Get paid every month.</span></h2>
+      <p style="font-size:15px;color:#6b7280;line-height:1.7;margin-bottom:34px;">Charge a one-time build fee, then lock in a hosting retainer. WebCrew tracks every invoice and reminds clients before they're late. You keep every dollar you earn.</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+        <div style="text-align:center;">
+          <div style="font-size:26px;font-weight:900;color:#0d1117;">2.4d</div>
+          <div style="font-size:12px;color:#9ca3af;margin-top:3px;">avg time to paid</div>
+        </div>
+        <div style="text-align:center;border-left:1px solid #f1f5f9;border-right:1px solid #f1f5f9;">
+          <div style="font-size:26px;font-weight:900;color:#0d1117;">0%</div>
+          <div style="font-size:12px;color:#9ca3af;margin-top:3px;">platform cut</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-size:26px;font-weight:900;color:#0d1117;">Auto</div>
+          <div style="font-size:12px;color:#9ca3af;margin-top:3px;">renewal reminders</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ TESTIMONIALS ══════════ -->
+<section style="background:#f8fafc;padding:100px 32px;">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:58px;" class="reveal">
+      <div style="display:inline-block;background:#fef9c3;color:#ca8a04;font-size:11px;font-weight:700;letter-spacing:0.08em;padding:4px 13px;border-radius:100px;margin-bottom:18px;">⚡ CREW STORIES</div>
+      <h2 style="font-size:clamp(30px,3.5vw,46px);font-weight:900;letter-spacing:-0.03em;color:#0d1117;">Freelancers who turned WebCrew<br/><em style="font-style:italic;color:#7c3aed;">into a real business.</em></h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;">
+      <div class="reveal" style="background:#fff;border-radius:22px;padding:30px;border:1px solid #e5e7eb;">
+        <div style="color:#f59e0b;font-size:15px;margin-bottom:14px;">★★★★★</div>
+        <p style="font-size:15px;color:#374151;line-height:1.75;margin-bottom:22px;">"I scanned roofers in my area on a Monday morning. By Friday I'd closed three clients and had $4,200 in my account. WebCrew did everything except the handshake."</p>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#5046e4,#7c3aed);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;">RT</div>
+          <div>
+            <div style="font-size:14px;font-weight:700;color:#0d1117;">Ryan Torres</div>
+            <div style="font-size:12px;color:#9ca3af;">Freelancer → Agency owner, Phoenix AZ</div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal" style="background:#fff;border-radius:22px;padding:30px;border:1px solid #e5e7eb;transition-delay:0.1s;">
+        <div style="color:#f59e0b;font-size:15px;margin-bottom:14px;">★★★★★</div>
+        <p style="font-size:15px;color:#374151;line-height:1.75;margin-bottom:22px;">"The site it built for my first HVAC client looked better than anything I could have designed manually. They paid the same day they saw the preview. I was floored."</p>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#10b981,#059669);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;">JM</div>
+          <div>
+            <div style="font-size:14px;font-weight:700;color:#0d1117;">Jasmine Moore</div>
+            <div style="font-size:12px;color:#9ca3af;">Web consultant, Atlanta GA</div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal" style="background:#fff;border-radius:22px;padding:30px;border:1px solid #e5e7eb;transition-delay:0.2s;">
+        <div style="color:#f59e0b;font-size:15px;margin-bottom:14px;">★★★★★</div>
+        <p style="font-size:15px;color:#374151;line-height:1.75;margin-bottom:22px;">"I run 22 client sites now. The retainer tracker alone saves me hours every month. $6,400 MRR and growing — all from my laptop on evenings and weekends."</p>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#f59e0b,#d97706);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;">DL</div>
+          <div>
+            <div style="font-size:14px;font-weight:700;color:#0d1117;">Derek Lam</div>
+            <div style="font-size:12px;color:#9ca3af;">Solo agency owner, Seattle WA</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ PRICING ══════════ -->
+<section id="pricing" style="padding:100px 32px;background:#fff;">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:60px;" class="reveal">
+      <div style="font-size:11px;font-weight:800;color:#7c3aed;letter-spacing:0.1em;margin-bottom:14px;text-transform:uppercase;">Simple Pricing</div>
+      <h2 style="font-size:clamp(30px,3.5vw,46px);font-weight:900;letter-spacing:-0.03em;color:#0d1117;">Pick your crew size.</h2>
+      <p style="font-size:15px;color:#6b7280;margin-top:12px;">All plans include the lead scanner, AI builder, deploy, and invoicing.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;align-items:start;padding-top:20px;">
+
+      <!-- Solo -->
+      <div class="reveal" style="background:#fff;border:1.5px solid #e5e7eb;border-radius:22px;padding:34px;box-shadow:0 2px 14px rgba(0,0,0,0.04);">
+        <div style="font-size:13px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:14px;">Solo</div>
+        <div style="display:flex;align-items:baseline;gap:2px;margin-bottom:6px;">
+          <span style="font-size:46px;font-weight:900;color:#0d1117;letter-spacing:-0.04em;">$29</span>
+          <span style="font-size:14px;color:#9ca3af;font-weight:500;">/mo</span>
+        </div>
+        <p style="font-size:13px;color:#9ca3af;margin-bottom:22px;">For freelancers just getting started.</p>
+        <hr style="border:none;border-top:1px solid #f1f5f9;margin-bottom:22px;" />
+        <div style="display:flex;flex-direction:column;gap:13px;margin-bottom:36px;">
+          <div style="display:flex;gap:10px;align-items:center;font-size:14px;color:#6b7280;">
+            <svg width="16" height="16" fill="none" stroke="#9ca3af" stroke-width="2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>5 site builds / month
+          </div>
+          <div style="display:flex;gap:10px;align-items:center;font-size:14px;color:#6b7280;">
+            <svg width="16" height="16" fill="none" stroke="#9ca3af" stroke-width="2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Lead scanner (10 searches/mo)
+          </div>
+          <div style="display:flex;gap:10px;align-items:center;font-size:14px;color:#6b7280;">
+            <svg width="16" height="16" fill="none" stroke="#9ca3af" stroke-width="2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Invoicing + PDF export
+          </div>
+          <div style="display:flex;gap:10px;align-items:center;font-size:14px;color:#6b7280;">
+            <svg width="16" height="16" fill="none" stroke="#9ca3af" stroke-width="2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>5 active client sites
+          </div>
+          <div style="display:flex;gap:10px;align-items:center;font-size:14px;color:#6b7280;">
+            <svg width="16" height="16" fill="none" stroke="#9ca3af" stroke-width="2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Email outreach automation
+          </div>
+        </div>
+        <a href="#" style="display:block;text-align:center;border:1.5px solid #e5e7eb;color:#0d1117;border-radius:12px;padding:13px;font-size:14px;font-weight:700;text-decoration:none;transition:all .2s;" onmouseover="this.style.borderColor='#5046e4';this.style.color='#5046e4'" onmouseout="this.style.borderColor='#e5e7eb';this.style.color='#0d1117'">Get started</a>
+      </div>
+
+      <!-- Crew — featured -->
+      <div class="reveal" style="background:linear-gradient(160deg,#3730a3 0%,#4f46e5 45%,#7c3aed 100%);border-radius:22px;padding:34px;position:relative;transform:translateY(-18px);box-shadow:0 28px 72px rgba(80,70,228,0.4),0 4px 18px rgba(80,70,228,0.2);transition-delay:0.05s;display:flex;flex-direction:column;">
+        <div style="display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.2);color:#fff;font-size:11px;font-weight:800;padding:5px 13px;border-radius:100px;margin-bottom:16px;align-self:flex-start;letter-spacing:0.04em;">
+          ★ MOST POPULAR
+        </div>
+        <div style="font-size:13px;font-weight:700;color:rgba(255,255,255,0.65);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:14px;">Crew</div>
+        <div style="display:flex;align-items:baseline;gap:2px;margin-bottom:6px;">
+          <span style="font-size:46px;font-weight:900;color:#fff;letter-spacing:-0.04em;">$59</span>
+          <span style="font-size:14px;color:rgba(255,255,255,0.5);font-weight:500;">/mo</span>
+        </div>
+        <p style="font-size:13px;color:rgba(255,255,255,0.55);margin-bottom:22px;">For freelancers building a real business.</p>
+        <hr style="border:none;border-top:1px solid rgba(255,255,255,0.18);margin-bottom:22px;" />
+        <div style="display:flex;flex-direction:column;gap:13px;margin-bottom:36px;flex:1;">
+          <div style="display:flex;gap:10px;align-items:center;font-size:14px;color:rgba(255,255,255,0.9);">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="rgba(255,255,255,0.2)"/><path d="M5 8l2 2 4-4" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>20 site builds / month
+          </div>
+          <div style="display:flex;gap:10px;align-items:center;font-size:14px;color:rgba(255,255,255,0.9);">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="rgba(255,255,255,0.2)"/><path d="M5 8l2 2 4-4" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Lead scanner (50 searches/mo)
+          </div>
+          <div style="display:flex;gap:10px;align-items:center;font-size:14px;color:rgba(255,255,255,0.9);">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="rgba(255,255,255,0.2)"/><path d="M5 8l2 2 4-4" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>30 active client sites
+          </div>
+          <div style="display:flex;gap:10px;align-items:center;font-size:14px;color:rgba(255,255,255,0.9);">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="rgba(255,255,255,0.2)"/><path d="M5 8l2 2 4-4" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Email + SMS outreach
+          </div>
+          <div style="display:flex;gap:10px;align-items:center;font-size:14px;color:#fff;font-weight:600;">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="rgba(255,255,255,0.2)"/><path d="M5 8l2 2 4-4" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Retainer tracker + auto-reminders
+          </div>
+          <div style="display:flex;gap:10px;align-items:center;font-size:14px;color:#fff;font-weight:600;">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="rgba(255,255,255,0.2)"/><path d="M5 8l2 2 4-4" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Priority support
+          </div>
+        </div>
+        <a href="#" style="display:block;text-align:center;background:#fff;color:#4f46e5;border-radius:12px;padding:14px;font-size:14px;font-weight:800;text-decoration:none;transition:opacity .2s;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">Get started</a>
+      </div>
+
+      <!-- Studio -->
+      <div class="reveal" style="background:#fff;border:1.5px solid #e5e7eb;border-radius:22px;padding:34px;box-shadow:0 2px 14px rgba(0,0,0,0.04);transition-delay:0.1s;">
+        <div style="font-size:13px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:14px;">Studio</div>
+        <div style="display:flex;align-items:baseline;gap:2px;margin-bottom:6px;">
+          <span style="font-size:46px;font-weight:900;color:#0d1117;letter-spacing:-0.04em;">$99</span>
+          <span style="font-size:14px;color:#9ca3af;font-weight:500;">/mo</span>
+        </div>
+        <p style="font-size:13px;color:#9ca3af;margin-bottom:22px;">For agencies managing large rosters.</p>
+        <hr style="border:none;border-top:1px solid #f1f5f9;margin-bottom:22px;" />
+        <div style="display:flex;flex-direction:column;gap:13px;margin-bottom:36px;">
+          <div style="display:flex;gap:10px;align-items:center;font-size:14px;color:#6b7280;">
+            <svg width="16" height="16" fill="none" stroke="#9ca3af" stroke-width="2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Unlimited site builds
+          </div>
+          <div style="display:flex;gap:10px;align-items:center;font-size:14px;color:#6b7280;">
+            <svg width="16" height="16" fill="none" stroke="#9ca3af" stroke-width="2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Lead scanner (unlimited)
+          </div>
+          <div style="display:flex;gap:10px;align-items:center;font-size:14px;color:#6b7280;">
+            <svg width="16" height="16" fill="none" stroke="#9ca3af" stroke-width="2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Unlimited active sites
+          </div>
+          <div style="display:flex;gap:10px;align-items:center;font-size:14px;color:#6b7280;">
+            <svg width="16" height="16" fill="none" stroke="#9ca3af" stroke-width="2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>White-label client portal
+          </div>
+          <div style="display:flex;gap:10px;align-items:center;font-size:14px;color:#6b7280;">
+            <svg width="16" height="16" fill="none" stroke="#9ca3af" stroke-width="2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Team seats (up to 5)
+          </div>
+          <div style="display:flex;gap:10px;align-items:center;font-size:14px;color:#6b7280;">
+            <svg width="16" height="16" fill="none" stroke="#9ca3af" stroke-width="2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>Dedicated account manager
+          </div>
+        </div>
+        <a href="#" style="display:block;text-align:center;border:1.5px solid #e5e7eb;color:#0d1117;border-radius:12px;padding:13px;font-size:14px;font-weight:700;text-decoration:none;transition:all .2s;" onmouseover="this.style.borderColor='#5046e4';this.style.color='#5046e4'" onmouseout="this.style.borderColor='#e5e7eb';this.style.color='#0d1117'">Get started</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FAQ ══════════ -->
+<section id="faq" style="padding:100px 32px;background:#f8fafc;">
+  <div style="max-width:700px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:56px;" class="reveal">
+      <div style="display:inline-block;background:#f1f5f9;color:#6b7280;font-size:11px;font-weight:700;letter-spacing:0.08em;padding:4px 13px;border-radius:100px;margin-bottom:18px;">FAQ</div>
+      <h2 style="font-size:clamp(28px,3.5vw,44px);font-weight:900;letter-spacing:-0.03em;color:#0d1117;">Common questions.</h2>
+    </div>
+    <div style="display:flex;flex-direction:column;">
+      <div style="border-bottom:1px solid #e5e7eb;" class="reveal">
+        <button onclick="toggleFaq(this)" style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:20px 0;background:none;border:none;cursor:pointer;text-align:left;">
+          <span style="font-size:15px;font-weight:700;color:#0d1117;">Do I need any design or coding skills?</span>
+          <div class="faq-icon" style="width:26px;height:26px;border-radius:50%;background:#f1f5f9;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s;">
+            <svg class="faq-x" width="12" height="12" fill="none" stroke="#ef4444" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          </div>
+        </button>
+        <div class="faq-ans open" style="padding-bottom:20px;">
+          <p style="font-size:14px;color:#6b7280;line-height:1.75;">None. WebCrew handles the design, copy, and deployment. You bring the hustle — we handle the technical execution.</p>
+        </div>
+      </div>
+      <div style="border-bottom:1px solid #e5e7eb;" class="reveal">
+        <button onclick="toggleFaq(this)" style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:20px 0;background:none;border:none;cursor:pointer;text-align:left;">
+          <span style="font-size:15px;font-weight:700;color:#0d1117;">How does WebCrew find businesses to pitch?</span>
+          <div class="faq-icon" style="width:26px;height:26px;border-radius:50%;background:#f1f5f9;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg class="faq-plus" width="12" height="12" fill="none" stroke="#6b7280" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+          </div>
+        </button>
+        <div class="faq-ans">
+          <p style="font-size:14px;color:#6b7280;line-height:1.75;padding-bottom:20px;">We pull from Google Business Profiles — 200M+ listings. The scanner flags businesses with no website or a site that scores poorly on mobile performance. You get a ranked list of warm prospects in seconds.</p>
+        </div>
+      </div>
+      <div style="border-bottom:1px solid #e5e7eb;" class="reveal">
+        <button onclick="toggleFaq(this)" style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:20px 0;background:none;border:none;cursor:pointer;text-align:left;">
+          <span style="font-size:15px;font-weight:700;color:#0d1117;">What niches work best with WebCrew?</span>
+          <div class="faq-icon" style="width:26px;height:26px;border-radius:50%;background:#f1f5f9;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg class="faq-plus" width="12" height="12" fill="none" stroke="#6b7280" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+          </div>
+        </button>
+        <div class="faq-ans">
+          <p style="font-size:14px;color:#6b7280;line-height:1.75;padding-bottom:20px;">HVAC, roofing, plumbing, dental, law firms, cleaning services, auto detailing, day cares, med spas, and more. Any niche where local businesses have foot traffic but not a great online presence.</p>
+        </div>
+      </div>
+      <div class="reveal">
+        <button onclick="toggleFaq(this)" style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:20px 0;background:none;border:none;cursor:pointer;text-align:left;">
+          <span style="font-size:15px;font-weight:700;color:#0d1117;">How much can I realistically charge per site?</span>
+          <div class="faq-icon" style="width:26px;height:26px;border-radius:50%;background:#f1f5f9;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg class="faq-plus" width="12" height="12" fill="none" stroke="#6b7280" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+          </div>
+        </button>
+        <div class="faq-ans">
+          <p style="font-size:14px;color:#6b7280;line-height:1.75;padding-bottom:20px;">Our crew typically charges $800–$2,500 for the initial build and $200–$400/month for hosting and maintenance. That's $2,400–$4,800 per client per year from a site WebCrew built in under 5 minutes.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CTA BANNER ══════════ -->
+<section style="padding:0 32px 90px;background:#f8fafc;">
+  <div class="reveal" style="max-width:1200px;margin:0 auto;background:linear-gradient(135deg,#0a0f1e 0%,#1e1b4b 40%,#3730a3 70%,#5046e4 100%);border-radius:28px;padding:90px 56px;text-align:center;position:relative;overflow:hidden;">
+    <!-- Glow blobs -->
+    <div style="position:absolute;top:-100px;left:-80px;width:360px;height:360px;background:radial-gradient(circle,rgba(124,58,237,0.25),transparent 70%);border-radius:50%;pointer-events:none;"></div>
+    <div style="position:absolute;bottom:-120px;right:-60px;width:420px;height:420px;background:radial-gradient(circle,rgba(80,70,228,0.2),transparent 70%);border-radius:50%;pointer-events:none;"></div>
+    <!-- Tag -->
+    <div style="display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.75);font-size:11px;font-weight:700;letter-spacing:0.1em;padding:5px 15px;border-radius:100px;margin-bottom:28px;border:1px solid rgba(255,255,255,0.15);position:relative;">
+      YOUR FIRST SITE IS FREE
+    </div>
+    <h2 style="font-size:clamp(36px,5vw,62px);font-weight:900;color:#fff;letter-spacing:-0.035em;margin-bottom:16px;line-height:1.05;position:relative;">A city.<br/>A niche.<br/><em style="font-style:italic;color:#a78bfa;">A business.</em></h2>
+    <p style="font-size:15px;color:rgba(255,255,255,0.5);margin-bottom:40px;position:relative;">No credit card · Cancel anytime · First build free</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative;">
+      <a href="#pricing" style="background:#fff;color:#3730a3;border-radius:100px;padding:15px 34px;font-weight:800;font-size:15px;text-decoration:none;display:inline-flex;align-items:center;gap:7px;transition:transform .15s;box-shadow:0 4px 20px rgba(0,0,0,0.2);" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+        Start your agency today
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#how" class="btn-outline-white">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16"/></svg>
+        See it in action
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer style="background:#0d1117;padding:60px 32px 32px;">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div style="display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;gap:52px;margin-bottom:52px;">
+      <!-- Brand -->
+      <div>
+        <div style="display:flex;align-items:center;gap:9px;margin-bottom:14px;">
+          <div class="w-mark">W</div>
+          <span style="font-weight:900;font-size:15px;color:#fff;letter-spacing:-0.02em;">WebCrew</span>
+        </div>
+        <p style="font-size:13px;color:#4b5563;line-height:1.7;max-width:220px;margin-bottom:18px;">AI-powered web agency platform. Find clients, build sites, collect payments — all in one place.</p>
+        <div style="display:flex;gap:16px;">
+          <a href="#" style="font-size:12px;font-weight:700;color:#4b5563;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#4b5563'">X / Twitter</a>
+          <a href="#" style="font-size:12px;font-weight:700;color:#4b5563;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#4b5563'">YouTube</a>
+        </div>
+      </div>
+      <!-- Product -->
+      <div>
+        <div style="font-size:11px;font-weight:800;color:#6b7280;letter-spacing:0.08em;margin-bottom:16px;text-transform:uppercase;">Product</div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <a href="#how" style="font-size:13px;color:#4b5563;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#4b5563'">How it works</a>
+          <a href="#features" style="font-size:13px;color:#4b5563;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#4b5563'">Features</a>
+          <a href="#leads" style="font-size:13px;color:#4b5563;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#4b5563'">Lead Scanner</a>
+          <a href="#pricing" style="font-size:13px;color:#4b5563;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#4b5563'">Pricing</a>
+          <a href="#" style="font-size:13px;color:#4b5563;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#4b5563'">Changelog</a>
+        </div>
+      </div>
+      <!-- Resources -->
+      <div>
+        <div style="font-size:11px;font-weight:800;color:#6b7280;letter-spacing:0.08em;margin-bottom:16px;text-transform:uppercase;">Resources</div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <a href="#" style="font-size:13px;color:#4b5563;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#4b5563'">Agency playbook</a>
+          <a href="#" style="font-size:13px;color:#4b5563;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#4b5563'">Niche guides</a>
+          <a href="#faq" style="font-size:13px;color:#4b5563;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#4b5563'">FAQ</a>
+          <a href="#" style="font-size:13px;color:#4b5563;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#4b5563'">Help center</a>
+          <a href="#" style="font-size:13px;color:#4b5563;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#4b5563'">Community</a>
+        </div>
+      </div>
+      <!-- Legal -->
+      <div>
+        <div style="font-size:11px;font-weight:800;color:#6b7280;letter-spacing:0.08em;margin-bottom:16px;text-transform:uppercase;">Legal</div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <a href="#" style="font-size:13px;color:#4b5563;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#4b5563'">Terms</a>
+          <a href="#" style="font-size:13px;color:#4b5563;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#4b5563'">Privacy</a>
+          <a href="#" style="font-size:13px;color:#4b5563;text-decoration:none;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#4b5563'">Security</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid #1f2937;padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+      <span style="font-size:12px;color:#374151;">© 2026 WebCrew · AI-powered web agency platform.</span>
+      <span style="font-size:12px;color:#374151;">Built for freelancers who mean business.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ─── Marquee ───
+const ITEMS = ['AI Site Builder','Lead Scanner','No-Code','Custom Domains','Instant Deploy','Client Previews','Built-in Invoicing','Retainer Tracker','SMS Outreach','White-Label Portal','Under 5 Minutes','$800–$2,500 Per Site'];
+const track = document.getElementById('marquee');
+const dot = `<span style="display:inline-block;width:5px;height:5px;background:#d1d5db;border-radius:50%;margin:0 8px;vertical-align:middle;"></span>`;
+const html = [...ITEMS,...ITEMS,...ITEMS,...ITEMS].map(t=>`<span style="display:inline-flex;align-items:center;font-size:13px;font-weight:600;color:#6b7280;padding:0 2px;white-space:nowrap;">${dot}${t}</span>`).join('');
+track.innerHTML = html;
+
+// ─── Feature tabs ───
+function switchFeat(idx) {
+  document.querySelectorAll('.ftab').forEach((t,i) => t.classList.toggle('active', i === idx));
+  for (let i = 0; i < 6; i++) {
+    const el = document.getElementById('fp-' + i);
+    if (el) el.style.display = i === idx ? 'grid' : 'none';
+  }
+}
+
+// ─── FAQ ───
+function toggleFaq(btn) {
+  const ans = btn.nextElementSibling;
+  const icon = btn.querySelector('.faq-icon');
+  const isOpen = ans.classList.contains('open');
+  document.querySelectorAll('.faq-ans').forEach(a => a.classList.remove('open'));
+  document.querySelectorAll('.faq-icon').forEach(ic => {
+    ic.style.background = '#f1f5f9';
+    ic.innerHTML = `<svg width="12" height="12" fill="none" stroke="#6b7280" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>`;
+  });
+  if (!isOpen) {
+    ans.classList.add('open');
+    icon.style.background = '#fee2e2';
+    icon.innerHTML = `<svg width="12" height="12" fill="none" stroke="#ef4444" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>`;
+  }
+}
+
+// ─── Scroll reveal ───
+const revEls = document.querySelectorAll('.reveal');
+function revealEl(el) {
+  el.classList.remove('hidden');
+  el.classList.add('visible');
+}
+const revObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { revealEl(e.target); revObs.unobserve(e.target); }
+  });
+}, { threshold: 0, rootMargin: '0px 0px 80px 0px' });
+revEls.forEach(el => {
+  const rect = el.getBoundingClientRect();
+  if (rect.top >= window.innerHeight) el.classList.add('hidden');
+  revObs.observe(el);
+});
+window.addEventListener('scroll', () => {
+  document.querySelectorAll('.reveal.hidden').forEach(el => {
+    const r = el.getBoundingClientRect();
+    if (r.top < window.innerHeight + 80) revealEl(el);
+  });
+}, { passive: true });
+</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+import { Nav, Hero, Services, WhyUs, Reviews, ServiceAreas, Contact, Footer } from "@core/web"
+import { TreatmentMenuSection } from "@/components/treatment-menu"
+import { config } from "@/lib/config"
+
+export default function Home() {
+  return (
+    <>
+      <Nav config={config} scrolledTheme="light" />
+      <main>
+        <Hero config={config} posterSrc="/hero-4.jpg" posterBrightness={0.6} />
+        <Services config={config} layout="zigzag" />
+        <TreatmentMenuSection config={config} />
+        <WhyUs config={config} />
+        <Reviews
+          config={config}
+          ctaText={`Book your free consultation — ${config.business.review_count}+ happy clients`}
+        />
+        <ServiceAreas config={config} />
+        <Contact config={config} />
+      </main>
+      <Footer config={config} />
+    </>
+  )
+}

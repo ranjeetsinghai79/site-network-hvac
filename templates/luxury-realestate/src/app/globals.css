@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Jost:wght@300;400;500;600&display=swap');
+@import "tailwindcss";
+@source "../../../../packages/core/src";
+@import "@core/web/styles";
+
+/* ═══════════════════════════════════════════════════════════════
+   Luxury-realestate · niche overrides
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Default body bg for this template — pure dark */
+body { background: var(--brand-bg); }
+
+/* Property card variant — sharp corners, gold hover ring */
+.property-card { border-radius: 2px; }
+.property-card:hover {
+  box-shadow: 0 32px 64px -16px rgba(0,0,0,0.7),
+              0 0 0 1px color-mix(in srgb, var(--brand-accent) 25%, transparent);
+}
+
+/* Loading screen / hero scroll hint match luxury palette */
+.loading-screen { background: var(--brand-bg) !important; }
