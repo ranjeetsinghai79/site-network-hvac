@@ -11,7 +11,7 @@ export const config: SiteConfig = {
     city: "Manteca",
     serviceAreas: ["Manteca"],
     license: "",
-    since: "",
+    since: "day one",
     google_rating: "",
     review_count: "",
     emergency: false,
