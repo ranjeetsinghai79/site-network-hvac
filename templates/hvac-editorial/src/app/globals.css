@@ -68,3 +68,17 @@ a { color: inherit; text-decoration: none; }
 .scroll-progress-bar { background: var(--brand-gradient); box-shadow: 0 0 10px var(--brand-accent-glow); }
 @media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; } }
 @media (max-width: 767px) { .mobile-call { display: inline-flex; } .hero-overlay { background: linear-gradient(180deg, rgba(6,21,34,.74), rgba(6,21,34,.98) 72%); } .section-pad { padding-block: 4.5rem; } }
+
+
+/* ── Design Profile: Glassmorphism Modern ── */
+/* ── Fonts: Libre Baskerville + Source Sans 3 ── */
+:root {
+  --font-display: 'Libre Baskerville', serif;
+  --font-body: 'Source Sans 3', sans-serif;
+  --brand-accent: #1E40AF;
+  --brand-accent-light: #3B82F6;
+  --brand-accent-glow: rgba(30,64,175,0.25);
+  --brand-grad-from: #3B82F6;
+  --brand-grad-to: #1E40AF;
+  --shadow-cta: 0 8px 32px -4px rgba(30,64,175,0.35);
+}
