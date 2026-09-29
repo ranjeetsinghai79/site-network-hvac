@@ -1,0 +1,155 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "HVACBusiness",
+      "@id": "https://site-network-hvac.pages.dev/#business",
+      "name": "NETWORK HVAC",
+      "url": "https://site-network-hvac.pages.dev",
+      "telephone": "(209) 328-8132",
+      "priceRange": "$$",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Manteca",
+        "addressRegion": "CA",
+        "postalCode": "95336",
+        "addressCountry": "US"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 37.7974,
+        "longitude": -121.2160
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday"
+          ],
+          "opens": "07:00",
+          "closes": "19:00"
+        }
+      ],
+      "areaServed": {
+        "@type": "City",
+        "name": "Manteca",
+        "sameAs": "https://en.wikipedia.org/wiki/Manteca,_California"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "reviewCount": "24",
+        "bestRating": "5",
+        "worstRating": "1"
+      }
+    },
+    {
+      "@type": "Service",
+      "@id": "https://site-network-hvac.pages.dev/#central-ac-installation",
+      "name": "Central Air Conditioning Installation",
+      "provider": {"@id": "https://site-network-hvac.pages.dev/#business"},
+      "areaServed": {"@type": "City", "name": "Manteca"},
+      "description": "Professional sizing, replacement, and installation of energy-efficient central AC systems designed for Central Valley climate conditions."
+    },
+    {
+      "@type": "Service",
+      "@id": "https://site-network-hvac.pages.dev/#furnace-repair",
+      "name": "Furnace Repair and Maintenance",
+      "provider": {"@id": "https://site-network-hvac.pages.dev/#business"},
+      "areaServed": {"@type": "City", "name": "Manteca"},
+      "description": "Comprehensive diagnostic, emergency heating repair, and seasonal safety maintenance for residential furnaces."
+    },
+    {
+      "@type": "Service",
+      "@id": "https://site-network-hvac.pages.dev/#ductless-mini-split",
+      "name": "Ductless Mini-Split Installation",
+      "provider": {"@id": "https://site-network-hvac.pages.dev/#business"},
+      "areaServed": {"@type": "City", "name": "Manteca"},
+      "description": "Custom multi-zone ductless heating and cooling installation for additions, garages, and homes without existing ductwork."
+    },
+    {
+      "@type": "HowTo",
+      "@id": "https://site-network-hvac.pages.dev/#install-process",
+      "name": "How Central Air Conditioning Installation Works",
+      "description": "Step-by-step installation process for replacing or installing a new central AC unit in Manteca homes.",
+      "totalTime": "PT6H",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "name": "Load Calculation and System Sizing",
+          "text": "Our technician evaluates home square footage, insulation, and duct condition to calculate exact cooling load requirements according to Manual J standards.",
+          "position": 1
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Safe Removal of Old Unit and Duct Prep",
+          "text": "Existing equipment and refrigerants are safely decommissioned and recovered according to EPA regulations, and duct connections are sealed.",
+          "position": 2
+        },
+        {
+          "@type": "HowToStep",
+          "name": "System Installation and Electrical Connection",
+          "text": "The new condenser and evaporator coil are secured, refrigerant lines are vacuumed and charged, and electrical and thermostat connections are wired.",
+          "position": 3
+        },
+        {
+          "@type": "HowToStep",
+          "name": "System Commissioning and Calibration",
+          "text": "We conduct airflow balancing, verify thermostat communication, run a complete cooling cycle test, and review operation with the homeowner.",
+          "position": 4
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://site-network-hvac.pages.dev/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How much does central air conditioning installation cost in Manteca, CA?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "In Manteca, standard central AC installation typically ranges between $4,500 and $9,500 depending on home size, SEER2 energy rating, and whether duct modifications are required."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How long does an HVAC replacement take?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Most residential AC or furnace replacements are completed in a single day, typically taking between 4 to 8 hours from arrival to final safety testing."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What should I expect during a heating and cooling service appointment?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You can expect a certified technician to inspect electrical controls, check refrigerant levels, test motor amperages, clean coils/burners, inspect duct connections, and provide clear upfront pricing before any work begins."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why should I hire a local Manteca HVAC contractor?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A local Manteca contractor understands San Joaquin County permitting standards, heat stress patterns common in Central Valley summers, and offers faster emergency response times compared to out-of-area dispatchers."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How often should I service my HVAC system in Manteca?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We recommend twice-yearly service: air conditioning tune-up in the spring before summer heat waves, and a furnace safety check in early autumn."
+          }
+        }
+      ]
+    }
+  ]
+}
